@@ -1,11 +1,13 @@
 <template>
-  <el-dialog
+  <el-drawer
     v-model="dialogOpen"
     :title="department ? t('departments.dialog.editTitle') : t('departments.dialog.createTitle')"
-    width="min(920px, calc(100vw - 32px))"
-    :close-on-click-modal="!saving"
+    size="min(696px, 100vw)"
+    :close-on-click-modal="false"
+    :close-on-press-escape="!saving"
+    :show-close="!saving"
   >
-    <el-form label-position="top" @submit.prevent="submit">
+    <el-form :disabled="saving" label-position="top" @submit.prevent="submit">
       <div class="form-columns">
         <el-form-item :label="t('departments.fields.name')" required>
           <el-input
@@ -45,7 +47,7 @@
         </el-button>
       </div>
     </el-form>
-  </el-dialog>
+  </el-drawer>
 </template>
 
 <script setup lang="ts">

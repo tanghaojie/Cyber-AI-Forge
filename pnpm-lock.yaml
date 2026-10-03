@@ -96,6 +96,9 @@ importers:
 
   apps/frontend:
     dependencies:
+      '@cyber-ai-forge/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
       '@cyber-ai-forge/api-contract':
         specifier: workspace:*
         version: link:../../packages/api-contract
@@ -160,6 +163,9 @@ importers:
 
   forge/website:
     dependencies:
+      '@cyber-ai-forge/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
       '@vue/server-renderer':
         specifier: ^3.5.35
         version: 3.5.35(vue@3.5.35(typescript@5.9.3))
@@ -189,6 +195,12 @@ importers:
       tsc-alias:
         specifier: ^1.9.1
         version: 1.9.1
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/design-tokens:
+    devDependencies:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3

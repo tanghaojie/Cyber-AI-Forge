@@ -1,8 +1,9 @@
 ---
+scope: foundation
 title: 岗位模块
 status: active
 owner: project maintainers
-updated: 2026-08-10
+updated: 2026-10-03
 ---
 
 # 岗位管理模块
@@ -260,3 +261,7 @@ HTTP request
 - [用户模块](users.md)
 - [授权与数据范围模块](authorization.md)
 - [岗位与组织归属 ADR](../../decisions/ADR-0034-position-organization-ownership.md)
+
+## PRISM 呈现
+
+管理页使用统一页面标题、检索工具栏、66px 数据行、语义状态与命名操作按钮；编辑器改用侧边抽屉，保留已有字段、校验、公共接口与 API。保存期间禁用表单和关闭操作，窄屏抽屉占满视口。前端响应式与 CRUD 由维护者人工验收。

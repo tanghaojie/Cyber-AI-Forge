@@ -1,7 +1,18 @@
 <template>
   <section class="management-page" aria-labelledby="roles-title">
     <header class="page-intro">
-      <el-button type="primary" :icon="Plus" size="large" @click="openCreate">
+      <div>
+        <p>{{ t('roles.page.kicker') }}</p>
+        <h2 id="roles-title">{{ t('roles.views.roles') }}</h2>
+        <span>{{ t('roles.page.description') }}</span>
+      </div>
+      <el-button
+        type="primary"
+        :aria-label="t('shared.actions.add')"
+        :icon="Plus"
+        size="large"
+        @click="openCreate"
+      >
         {{ t('roles.page.add') }}
       </el-button>
     </header>

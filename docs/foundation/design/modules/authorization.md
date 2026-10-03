@@ -1,8 +1,9 @@
 ---
+scope: foundation
 title: 授权与数据范围模块
 status: active
 owner: maintainers
-updated: 2026-08-10
+updated: 2026-10-03
 ---
 
 # 授权与数据范围模块
@@ -184,3 +185,7 @@ departmentIds
 - [ADR-0025](../../decisions/ADR-0025-pluggable-authorization-and-data-scope.md)
 - [实施计划](../../archive/plans/2026-07-30-pluggable-authorization.md)
 - [AI 协作记录](../../archive/ai-logs/2026/07/2026-07-30-pluggable-authorization.md)
+
+## PRISM 数据策略编辑器
+
+DataPolicyEditor 采用中性规则卡片，仍以资源 → 动作 → 范围配置策略，保留自定义部门、包含后代与部门继承字段。角色的功能授权和数据范围分开呈现；组件不扩大数据资源目录或绕过后端委托检查。

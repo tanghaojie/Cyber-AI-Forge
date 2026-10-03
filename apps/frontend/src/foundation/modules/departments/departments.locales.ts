@@ -2,6 +2,9 @@ import { defineLocalizationResource } from '@/foundation/shared/localization/loc
 
 export const localizationResource = defineLocalizationResource('departments', {
   'zh-CN': {
+    'page.kicker': 'ORGANIZATION / DEPARTMENTS',
+    'page.description': '从组织层级出发，维护部门与继承关系。',
+
     'views.departments': '部门管理',
     'page.add': '新增部门',
     'list.searchPlaceholder': '搜索部门名称',
@@ -32,6 +35,9 @@ export const localizationResource = defineLocalizationResource('departments', {
     'errors.accessLoadFailed': '数据权限加载失败',
   },
   'en-US': {
+    'page.kicker': 'ORGANIZATION / DEPARTMENTS',
+    'page.description': 'Maintain departments and their place in the organization.',
+
     'views.departments': 'Department management',
     'page.add': 'Add department',
     'list.searchPlaceholder': 'Search department name',

@@ -62,9 +62,9 @@
       <el-table-column prop="sortOrder" :label="t('positions.fields.order')" width="80" />
       <el-table-column :label="t('positions.fields.status')" width="100">
         <template #default="{ row }">
-          <el-tag :type="row.enabled ? 'success' : 'info'" round>
-            {{ row.enabled ? t('shared.state.enabled') : t('shared.state.disabled') }}
-          </el-tag>
+          <span class="status-label" :class="{ 'is-enabled': row.enabled }">{{
+            row.enabled ? t('shared.state.enabled') : t('shared.state.disabled')
+          }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="t('positions.fields.updatedAt')" min-width="170">
@@ -74,8 +74,21 @@
       </el-table-column>
       <el-table-column :label="t('positions.fields.actions')" width="112" fixed="right">
         <template #default="{ row }">
-          <el-button circle text :icon="EditPen" @click="emit('edit', row)" />
-          <el-button circle text type="danger" :icon="Delete" @click="remove(row)" />
+          <el-button
+            circle
+            text
+            :aria-label="t('shared.actions.edit')"
+            :icon="EditPen"
+            @click="emit('edit', row)"
+          />
+          <el-button
+            circle
+            text
+            type="danger"
+            :aria-label="t('shared.actions.delete')"
+            :icon="Delete"
+            @click="remove(row)"
+          />
         </template>
       </el-table-column>
     </el-table>
@@ -197,9 +210,8 @@ onMounted(load)
   width: 9px;
   height: 9px;
   border-radius: 2px;
-  background: #d7a448;
-  box-shadow: 4px 4px 0 #c6e7d9;
-  transform: rotate(45deg);
+  background: var(--primary);
+  box-shadow: none;
 }
 
 @media (max-width: 700px) {

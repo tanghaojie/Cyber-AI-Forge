@@ -107,166 +107,91 @@ function handleCommand(command: string): void {
   top: var(--app-shell-header-height);
   z-index: 19;
   display: flex;
-  width: 100%;
   height: var(--tag-view-height);
-  min-width: 0;
-  align-items: stretch;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--surface), transparent 6%);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--ink), transparent 96%);
-  backdrop-filter: blur(16px);
+  background: var(--canvas);
+  padding: 0 40px;
 }
-
 .tag-view__history {
   display: flex;
-  min-width: 0;
-  flex: 1 1 auto;
-  align-items: center;
-  gap: 6px;
+  align-items: stretch;
+  gap: 24px;
   overflow-x: auto;
-  padding: 7px 10px;
-  scrollbar-color: var(--line) transparent;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  min-width: 0;
+  flex: 1;
 }
-
 .tag-view__item {
   display: flex;
-  height: 32px;
-  flex: 0 0 auto;
-  align-items: stretch;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  color: var(--ink-soft);
-  background: var(--surface);
-  transition:
-    border-color 0.18s ease,
-    color 0.18s ease,
-    background 0.18s ease;
-
-  &:hover {
-    border-color: var(--primary);
-    color: var(--ink);
-  }
+  align-items: center;
+  flex-shrink: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
 }
-
 .tag-view__item--active {
-  border-color: var(--primary);
-  color: var(--primary-dark);
-  background: var(--primary-mist);
+  border-bottom-color: var(--primary);
+  color: var(--ink);
 }
-
-.tag-view__link,
-.tag-view__close,
-.tag-view__action-button {
-  border: 0;
-  color: inherit;
-  background: transparent;
-}
-
 .tag-view__link {
   display: flex;
-  min-width: 0;
-  max-width: 220px;
   align-items: center;
-  gap: 7px;
-  padding: 0 8px 0 10px;
-}
-
-.tag-view__marker {
-  width: 6px;
-  height: 6px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--line);
-}
-
-.tag-view__item--active .tag-view__marker {
-  background: var(--primary-deep);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary), transparent 78%);
-}
-
-.tag-view__title {
-  overflow: hidden;
+  height: 100%;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
   font-size: 12px;
-  font-weight: 700;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+.tag-view__marker {
+  display: none;
+}
+.tag-view__title {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .tag-view__close {
   display: grid;
-  width: 28px;
   place-items: center;
-  padding: 0;
-  opacity: 0.55;
-  transition:
-    opacity 0.18s ease,
-    background 0.18s ease;
-
-  &:hover {
-    background: var(--primary-mist);
-    opacity: 1;
-  }
-
-  svg {
-    width: 13px;
-    height: 13px;
-  }
+  width: 28px;
+  height: 28px;
+  border: 0;
+  margin-left: 4px;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted);
 }
-
+.tag-view__close:hover {
+  color: var(--danger);
+  background: var(--surface-muted);
+}
+.tag-view__close svg,
+.tag-view__action-button svg {
+  width: 12px;
+  height: 12px;
+}
 .tag-view__actions {
   display: flex;
-  flex: 0 0 auto;
   align-items: center;
-  padding: 7px 10px;
-  border-left: 1px solid var(--line);
+  margin-left: 16px;
 }
-
 .tag-view__action-button {
   display: flex;
-  height: 32px;
   align-items: center;
-  gap: 7px;
-  padding: 0 10px;
-  border-radius: 10px;
+  gap: 8px;
+  border: 0;
+  background: transparent;
   color: var(--ink-soft);
   font-size: 11px;
-  font-weight: 800;
-  transition:
-    color 0.18s ease,
-    background 0.18s ease;
-
-  &:hover {
-    color: var(--primary-dark);
-    background: var(--primary-mist);
-  }
-
-  svg {
-    width: 12px;
-    height: 12px;
-  }
 }
-
-@media (max-width: 479px) {
-  .tag-view__history {
-    padding-right: 6px;
-    padding-left: 8px;
+@media (max-width: 639px) {
+  .tag-view {
+    padding: 0 16px;
   }
-
-  .tag-view__actions {
-    padding-right: 6px;
-    padding-left: 6px;
-  }
-
-  .tag-view__action-button {
-    width: 34px;
-    justify-content: center;
-    padding: 0;
-
-    span {
-      display: none;
-    }
+  .tag-view__actions span {
+    display: none;
   }
 }
 </style>

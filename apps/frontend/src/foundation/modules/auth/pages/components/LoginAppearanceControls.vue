@@ -147,7 +147,7 @@ function updateTheme(themeColor: ThemeColor): void {
   border: 1px solid var(--appearance-line) !important;
   border-radius: 18px !important;
   background: var(--appearance-panel) !important;
-  box-shadow: 0 20px 48px color-mix(in srgb, var(--ink), transparent 84%) !important;
+  box-shadow: none;
 }
 
 .login-appearance-panel {
@@ -164,7 +164,7 @@ function updateTheme(themeColor: ThemeColor): void {
   span {
     color: var(--primary-deep);
     font-size: 8px;
-    font-weight: 900;
+    font-weight: 500;
     letter-spacing: 0.16em;
   }
 
@@ -193,7 +193,7 @@ function updateTheme(themeColor: ThemeColor): void {
   gap: 10px;
   padding: 10px;
   border: 1px solid color-mix(in srgb, var(--primary), transparent 72%);
-  border-radius: 13px;
+  border-radius: 4px;
   background: var(--primary-mist);
 }
 
@@ -202,7 +202,7 @@ function updateTheme(themeColor: ThemeColor): void {
   width: 34px;
   height: 34px;
   place-items: center;
-  border-radius: 10px;
+  border-radius: 4px;
   color: var(--primary-deep);
   background: color-mix(in srgb, var(--surface), transparent 18%);
 
@@ -244,7 +244,7 @@ function updateTheme(themeColor: ThemeColor): void {
 .login-appearance-panel__label {
   color: var(--appearance-ink);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .login-appearance-panel__theme-grid {
@@ -261,7 +261,7 @@ function updateTheme(themeColor: ThemeColor): void {
   gap: 6px;
   padding: 8px 7px;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 4px;
   color: var(--appearance-muted);
   background: transparent;
   font-size: 9px;
@@ -310,7 +310,7 @@ function updateTheme(themeColor: ThemeColor): void {
 .login-appearance-theme__swatch {
   width: 15px;
   height: 15px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--appearance-swatch), var(--ink) 20%);
+  box-shadow: none;
 }
 
 .login-appearance-theme > span:nth-child(2) {
@@ -324,7 +324,7 @@ function updateTheme(themeColor: ThemeColor): void {
   margin-left: auto;
   color: var(--primary-deep);
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 500;
 }
 
 .login-appearance-theme--active .login-appearance-theme__check {
@@ -338,12 +338,12 @@ function updateTheme(themeColor: ThemeColor): void {
   gap: 8px;
   padding: 0 10px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
   color: var(--muted);
   background: color-mix(in srgb, var(--surface), transparent 22%);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--surface), var(--ink) 24%);
+  box-shadow: none;
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 500;
   transition:
     color 0.18s ease,
     border-color 0.18s ease,
@@ -365,7 +365,7 @@ function updateTheme(themeColor: ThemeColor): void {
 .login-appearance-trigger__swatch {
   width: 15px;
   height: 15px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--appearance-swatch), var(--ink) 20%);
+  box-shadow: none;
 }
 
 .login-appearance-trigger__label {

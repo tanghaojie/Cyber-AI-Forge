@@ -95,25 +95,25 @@ This allows AI and people to develop around the same interface facts and reduces
 
 ## <img src="./forge/website/src/assets/readme-icons/system.svg" alt="" width="20" height="20" /> 03 / System Screenshots
 
-The screenshots in this README come from the runnable administration console included in the repository. They cover the login entry point, workbench, user and menu management, role permissions, API logs, and system settings. They illustrate the current capabilities and do not represent a remote demo environment.
+These PRISM interface design previews cover login, the workbench, users, menus, roles, API logs and settings. They contain sample data and are not screenshots of the running application. Functional and responsive behavior requires local, manual acceptance.
 
 <div align="center">
-  <img src="./forge/website/src/assets/screenshots/login.png" alt="Cyber AI Forge login page" width="49%" />
-  <img src="./forge/website/src/assets/screenshots/home.png" alt="Cyber AI Forge workbench" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/login.png" alt="Cyber AI Forge login page" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/home.png" alt="Cyber AI Forge workbench" width="49%" />
 </div>
 
 <div align="center">
-  <img src="./forge/website/src/assets/screenshots/users.png" alt="Cyber AI Forge user management" width="49%" />
-  <img src="./forge/website/src/assets/screenshots/menus.png" alt="Cyber AI Forge menu management" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/users.png" alt="Cyber AI Forge user management" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/menus.png" alt="Cyber AI Forge menu management" width="49%" />
 </div>
 
 <div align="center">
-  <img src="./forge/website/src/assets/screenshots/roles.png" alt="Cyber AI Forge role and data permissions" width="49%" />
-  <img src="./forge/website/src/assets/screenshots/api-logs.png" alt="Cyber AI Forge API logs" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/roles.png" alt="Cyber AI Forge role and data permissions" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/api-logs.png" alt="Cyber AI Forge API logs" width="49%" />
 </div>
 
 <div align="center">
-  <img src="./forge/website/src/assets/screenshots/settings.png" alt="Cyber AI Forge system settings" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/settings.png" alt="Cyber AI Forge system settings" width="49%" />
 </div>
 
 ## <img src="./forge/website/src/assets/readme-icons/people.svg" alt="" width="20" height="20" /> 04 / Who is it for?

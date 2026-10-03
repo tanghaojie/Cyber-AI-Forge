@@ -264,7 +264,7 @@ async function handleLogout(): Promise<void> {
 }
 
 .app-shell--sidebar {
-  --app-sidebar-width: min(280px, calc(100vw - 48px));
+  --app-sidebar-width: 224px;
 
   display: grid;
   grid-template-columns: var(--app-sidebar-width) minmax(0, 1fr);

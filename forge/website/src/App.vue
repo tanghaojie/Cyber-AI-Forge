@@ -1,188 +1,85 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { THEME_COLORS, type ThemeColor } from '@cyber-ai-forge/design-tokens'
+import structureArtwork from './assets/prism-structure.png'
+import BrandMark from './components/BrandMark.vue'
 import ProductScene from './components/ProductScene.vue'
 import { content, GITHUB_URL, type Locale } from './content'
-
+const props = defineProps<{ initialLocale: Locale }>()
+const locale = ref<Locale>(props.initialLocale)
+const t = computed(() => content[locale.value])
+const mobileMenuOpen = ref(false)
+const activeScene = ref(0)
+const copied = ref(false)
+const themeColors = THEME_COLORS
+const theme = ref<ThemeColor>('jade')
+const darkMode = ref(false)
+const themeNames = {
+  zh: ['翡翠', '朱砂', '黑白', '蔚蓝', '鸢尾', '琥珀'],
+  en: ['Jade', 'Civic', 'Mono', 'Azure', 'Violet', 'Amber'],
+}
+const languageLinks = computed(() => ({
+  en: locale.value === 'zh' ? '../' : './',
+  zh: locale.value === 'zh' ? './' : 'zh/',
+}))
 const commands = `pnpm install
-Copy-Item apps/backend/.env.example apps/backend/.env
+Copy-Item apps/backend/env/.env.foundation.example apps/backend/env/.env.foundation.local
+Copy-Item apps/backend/env/.env.platform.example apps/backend/env/.env.platform.local
 pnpm db:migrate
 pnpm dev`
-
-const props = defineProps<{
-  initialLocale: Locale
-}>()
-
-const locale = ref<Locale>(props.initialLocale)
-const mobileMenuOpen = ref(false)
-const headerScrolled = ref(false)
-const showcaseSection = ref<HTMLElement | null>(null)
-const ringProgress = ref(0)
-const activeScene = ref(0)
-const ringEnabled = ref(false)
-const copied = ref(false)
-const t = computed(function () {
-  return content[locale.value]
+function closeMobileMenu(): void {
+  mobileMenuOpen.value = false
+}
+function selectScene(direction: number): void {
+  activeScene.value =
+    (activeScene.value + direction + t.value.showcase.scenes.length) %
+    t.value.showcase.scenes.length
+}
+function toggleDarkMode(): void {
+  darkMode.value = !darkMode.value
+  applyAppearance()
+}
+function applyAppearance(): void {
+  document.documentElement.dataset.theme = theme.value
+  document.documentElement.classList.toggle('dark', darkMode.value)
+  try {
+    localStorage.setItem(
+      'forge-website-appearance',
+      JSON.stringify({ theme: theme.value, darkMode: darkMode.value }),
+    )
+  } catch {
+    /* Appearance remains usable when persistence is blocked. */
+  }
+}
+onMounted(function restoreAppearance() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('forge-website-appearance') ?? 'null')
+    if (saved && THEME_COLORS.includes(saved.theme)) {
+      theme.value = saved.theme
+      darkMode.value = saved.darkMode === true
+    }
+  } catch {
+    /* Invalid or unavailable preferences use the default. */
+  }
+  applyAppearance()
 })
-
-let frameId = 0
-let copyTimer = 0
-let revealObserver: IntersectionObserver | undefined
-let reducedMotionQuery: MediaQueryList | undefined
-let compactQuery: MediaQueryList | undefined
-
-const languageLinks = computed(function () {
-  return {
-    en: locale.value === 'zh' ? '../' : './',
-    zh: locale.value === 'zh' ? './' : 'zh/',
-  }
-})
-const publicAssetPrefix = computed(function () {
-  return locale.value === 'zh' ? '../' : './'
-})
-
-function updateRingMode(): void {
-  ringEnabled.value = !(reducedMotionQuery?.matches ?? false) && !(compactQuery?.matches ?? false)
-  requestScrollUpdate()
-}
-
-function updateScrollState(): void {
-  frameId = 0
-  headerScrolled.value = window.scrollY > 20
-
-  const section = showcaseSection.value
-  if (!section || !ringEnabled.value) {
-    return
-  }
-
-  const rect = section.getBoundingClientRect()
-  const scrollRange = Math.max(section.offsetHeight - window.innerHeight, 1)
-  const progress = Math.min(Math.max(-rect.top / scrollRange, 0), 1)
-  ringProgress.value = progress
-  activeScene.value = Math.min(
-    t.value.showcase.scenes.length - 1,
-    Math.round(progress * (t.value.showcase.scenes.length - 1)),
-  )
-}
-
-function requestScrollUpdate(): void {
-  if (frameId) {
-    return
-  }
-  frameId = window.requestAnimationFrame(updateScrollState)
-}
-
-function sceneCardStyle(index: number): Record<string, string> {
-  return {
-    '--scene-angle': `${index * 60}deg`,
-  }
-}
-
-function selectScene(index: number): void {
-  activeScene.value = index
-
-  if (!ringEnabled.value || !showcaseSection.value) {
-    document.getElementById(`scene-${index}`)?.scrollIntoView({
-      behavior: reducedMotionQuery?.matches ? 'auto' : 'smooth',
-      inline: 'center',
-      block: 'nearest',
-    })
-    return
-  }
-
-  const section = showcaseSection.value
-  const top = window.scrollY + section.getBoundingClientRect().top
-  const scrollRange = Math.max(section.offsetHeight - window.innerHeight, 1)
-  window.scrollTo({
-    top: top + (index / (t.value.showcase.scenes.length - 1)) * scrollRange,
-    behavior: reducedMotionQuery?.matches ? 'auto' : 'smooth',
-  })
-}
-
-function handleShowcaseKeydown(event: KeyboardEvent): void {
-  if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
-    return
-  }
-  event.preventDefault()
-  const direction = event.key === 'ArrowRight' ? 1 : -1
-  const sceneCount = t.value.showcase.scenes.length
-  selectScene((activeScene.value + direction + sceneCount) % sceneCount)
-}
-
 async function copyCommands(): Promise<void> {
   try {
     await navigator.clipboard.writeText(commands)
     copied.value = true
-    window.clearTimeout(copyTimer)
-    copyTimer = window.setTimeout(function () {
-      copied.value = false
-    }, 1800)
   } catch {
     copied.value = false
   }
 }
-
-function closeMobileMenu(): void {
-  mobileMenuOpen.value = false
-}
-
-function observeReveals(): void {
-  if (reducedMotionQuery?.matches || !('IntersectionObserver' in window)) {
-    document.querySelectorAll('.reveal').forEach(function (element) {
-      element.classList.add('is-visible')
-    })
-    return
-  }
-
-  revealObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) {
-          return
-        }
-        entry.target.classList.add('is-visible')
-        revealObserver?.unobserve(entry.target)
-      })
-    },
-    { threshold: 0.14 },
-  )
-
-  document.querySelectorAll('.reveal').forEach(function (element) {
-    revealObserver?.observe(element)
-  })
-}
-
-onMounted(function () {
-  reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-  compactQuery = window.matchMedia('(max-width: 900px), (pointer: coarse)')
-  reducedMotionQuery.addEventListener('change', updateRingMode)
-  compactQuery.addEventListener('change', updateRingMode)
-  window.addEventListener('scroll', requestScrollUpdate, { passive: true })
-  window.addEventListener('resize', requestScrollUpdate, { passive: true })
-
-  document.documentElement.lang = locale.value === 'zh' ? 'zh-CN' : 'en'
-  updateRingMode()
-  requestScrollUpdate()
-  nextTick(observeReveals)
-})
-
-onBeforeUnmount(function () {
-  window.removeEventListener('scroll', requestScrollUpdate)
-  window.removeEventListener('resize', requestScrollUpdate)
-  reducedMotionQuery?.removeEventListener('change', updateRingMode)
-  compactQuery?.removeEventListener('change', updateRingMode)
-  revealObserver?.disconnect()
-  window.cancelAnimationFrame(frameId)
-  window.clearTimeout(copyTimer)
-})
 </script>
 
 <template>
   <a class="skip-link" href="#main-content">{{ t.skip }}</a>
 
-  <header class="site-header" :class="{ 'is-scrolled': headerScrolled, 'is-open': mobileMenuOpen }">
+  <header class="site-header" :class="{ 'is-open': mobileMenuOpen }">
     <div class="header-inner">
       <a class="brand-lockup" href="#top" aria-label="Cyber AI Forge home" @click="closeMobileMenu">
-        <img :src="`${publicAssetPrefix}cyber-mark.svg`" alt="" width="42" height="42" />
+        <BrandMark />
         <span><strong>CYBER</strong><small>AI FORGE</small></span>
       </a>
 
@@ -191,6 +88,24 @@ onBeforeUnmount(function () {
       </nav>
 
       <div class="header-actions">
+        <div class="appearance-controls">
+          <select
+            v-model="theme"
+            :aria-label="locale === 'zh' ? '主题色' : 'Theme color'"
+            @change="applyAppearance"
+          >
+            <option v-for="(color, index) in themeColors" :key="color" :value="color">
+              {{ themeNames[locale][index] }}
+            </option></select
+          ><button
+            type="button"
+            :aria-pressed="darkMode"
+            :aria-label="locale === 'zh' ? '切换深色模式' : 'Toggle dark mode'"
+            @click="toggleDarkMode"
+          >
+            {{ darkMode ? '◐' : '◑' }}
+          </button>
+        </div>
         <div
           class="language-switcher"
           :class="{ 'is-zh': locale === 'zh' }"
@@ -275,24 +190,10 @@ onBeforeUnmount(function () {
           </div>
         </div>
 
-        <div class="hero-machine reveal" aria-hidden="true">
-          <div class="machine-label machine-label-top">SYSTEM / 001</div>
-          <div class="orbit orbit-outer"><i></i><i></i><i></i></div>
-          <div class="orbit orbit-middle"><i></i><i></i></div>
-          <div class="orbit orbit-inner"></div>
-          <div class="machine-crosshair"><span></span><span></span></div>
-          <img
-            class="machine-logo"
-            :src="`${publicAssetPrefix}cyber-mark.svg`"
-            alt=""
-            width="112"
-            height="112"
-          />
-          <div class="machine-node node-a"></div>
-          <div class="machine-node node-b"></div>
-          <div class="machine-node node-c"></div>
-          <div class="machine-label machine-label-bottom">CONTRACT / VERIFIED</div>
-        </div>
+        <figure class="hero-machine" aria-hidden="true">
+          <img :src="structureArtwork" alt="" width="1024" height="1024" fetchpriority="high" />
+          <figcaption>FORM / STRUCTURE / CONTINUITY</figcaption>
+        </figure>
 
         <div class="hero-status reveal">
           <span><i></i>{{ t.hero.signal }}</span
@@ -337,85 +238,45 @@ onBeforeUnmount(function () {
       </div>
     </section>
 
-    <section
-      id="showcase"
-      ref="showcaseSection"
-      class="showcase-section"
-      :class="{ 'ring-mode': ringEnabled }"
-    >
-      <div class="showcase-sticky">
-        <div class="container showcase-copy">
-          <div class="section-heading reveal">
-            <span class="section-label">{{ t.showcase.label }}</span>
-            <h2>{{ t.showcase.title }}</h2>
-            <p>{{ t.showcase.lead }}</p>
-          </div>
-          <div v-if="ringEnabled" class="scroll-cue" aria-hidden="true">
-            <i></i><span>{{ t.showcase.scrollHint }}</span>
-          </div>
-        </div>
-
-        <div
-          v-if="ringEnabled"
-          class="ring-viewport"
-          tabindex="0"
-          :aria-label="t.showcase.sceneLabel"
-          @keydown="handleShowcaseKeydown"
+    <section id="showcase" class="showcase-section container">
+      <div class="section-heading">
+        <span class="section-label">{{ t.showcase.label }}</span>
+        <h2>{{ t.showcase.title }}</h2>
+        <p>{{ t.showcase.lead }}</p>
+      </div>
+      <div class="scene-pagination" role="group" :aria-label="t.showcase.sceneLabel">
+        <button
+          v-for="(scene, index) in t.showcase.scenes"
+          :key="scene.code"
+          type="button"
+          :aria-pressed="activeScene === index"
+          :class="{ 'is-active': activeScene === index }"
+          @click="activeScene = index"
         >
-          <div
-            class="showcase-ring"
-            :style="{ transform: `rotateX(-5deg) rotateY(${-ringProgress * 300}deg)` }"
-          >
-            <article
-              v-for="(scene, index) in t.showcase.scenes"
-              :id="`scene-${index}`"
-              :key="scene.code"
-              class="ring-card"
-              :class="{ 'is-active': activeScene === index }"
-              :style="sceneCardStyle(index)"
-              :aria-hidden="activeScene !== index"
-            >
-              <ProductScene :scene="scene" />
-            </article>
-          </div>
-        </div>
-
-        <div v-else class="scene-strip container" tabindex="0" @keydown="handleShowcaseKeydown">
-          <article
-            v-for="(scene, index) in t.showcase.scenes"
-            :id="`scene-${index}`"
-            :key="scene.code"
-            class="strip-card"
-          >
-            <ProductScene :scene="scene" />
-            <div class="strip-card-copy">
-              <span>{{ scene.code }}</span>
-              <h3>{{ scene.title }}</h3>
-              <p>{{ scene.description }}</p>
-            </div>
-          </article>
-        </div>
-
-        <div class="showcase-caption container" aria-live="polite">
-          <div>
-            <span>{{ t.showcase.scenes[activeScene].code }}</span>
-            <h3>{{ t.showcase.scenes[activeScene].title }}</h3>
-            <p>{{ t.showcase.scenes[activeScene].description }}</p>
-          </div>
-          <div class="scene-pagination" :aria-label="t.showcase.sceneLabel">
-            <button
-              v-for="(scene, index) in t.showcase.scenes"
-              :key="scene.code"
-              type="button"
-              :class="{ 'is-active': activeScene === index }"
-              :aria-label="`${t.showcase.sceneLabel} ${index + 1}: ${scene.title}`"
-              :aria-current="activeScene === index ? 'true' : undefined"
-              @click="selectScene(index)"
-            >
-              <span>{{ String(index + 1).padStart(2, '0') }}</span>
-            </button>
-          </div>
-        </div>
+          <span>{{ String(index + 1).padStart(2, '0') }}</span
+          >{{ scene.title }}
+        </button>
+      </div>
+      <figure
+        class="showcase-frame"
+        tabindex="0"
+        :aria-label="t.showcase.sceneLabel"
+        @keydown.left.prevent="selectScene(-1)"
+        @keydown.right.prevent="selectScene(1)"
+      >
+        <ProductScene :scene="t.showcase.scenes[activeScene]" />
+        <figcaption>
+          <span>{{
+            locale === 'zh'
+              ? 'PRISM 界面设计预览 · 示例数据'
+              : 'PRISM UI design preview · sample data'
+          }}</span
+          ><span>{{ String(activeScene + 1).padStart(2, '0') }} / 06</span>
+        </figcaption>
+      </figure>
+      <div class="showcase-caption" aria-live="polite">
+        <h3>{{ t.showcase.scenes[activeScene].title }}</h3>
+        <p>{{ t.showcase.scenes[activeScene].description }}</p>
       </div>
     </section>
 
@@ -538,13 +399,8 @@ onBeforeUnmount(function () {
               >{{ copied ? t.start.copied : t.start.copy }}
             </button>
           </div>
-          <pre><code><span>$</span> pnpm install
-
-<span>$</span> Copy-Item apps/backend/.env.example apps/backend/.env
-
-<span>$</span> pnpm db:migrate
-<span>$</span> pnpm dev</code></pre>
-          <div class="terminal-status"><i></i>http://localhost:5173 <span>READY</span></div>
+          <pre><code>{{ commands }}</code></pre>
+          <div class="terminal-status">LOCAL DEVELOPMENT / localhost:5173</div>
         </div>
         <aside class="boundaries reveal">
           <span class="section-label">REALITY CHECK</span>
@@ -579,9 +435,7 @@ onBeforeUnmount(function () {
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="brand-lockup">
-        <img :src="`${publicAssetPrefix}cyber-mark.svg`" alt="" width="42" height="42" /><span
-          ><strong>CYBER</strong><small>AI FORGE</small></span
-        >
+        <BrandMark /><span><strong>CYBER</strong><small>AI FORGE</small></span>
       </div>
       <p>{{ t.closing.creator }}</p>
       <a href="#top">{{ t.closing.backTop }} ↑</a>

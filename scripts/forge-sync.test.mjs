@@ -13,6 +13,19 @@ test('parses the repository YAML manifest', async () => {
   const manifestPath = fileURLToPath(new URL('../.forge-sync.yml', import.meta.url))
   const manifest = parseManifest(await readFile(manifestPath, 'utf8'))
   assert.ok(manifest.foundation.includes('docs/templates/'))
+  assert.equal(classifyPath('packages/design-tokens/package.json', manifest), 'foundation')
+  assert.equal(
+    classifyPath('packages/design-tokens/src/foundation/modules/theme/theme.tokens.css', manifest),
+    'foundation',
+  )
+  assert.equal(
+    classifyPath('apps/frontend/src/platform/assets/prism-structure.png', manifest),
+    'platform',
+  )
+  assert.equal(
+    classifyPath('forge/website/src/assets/design-previews/users.png', manifest),
+    'forge',
+  )
   assert.ok(manifest.platform.includes('.archive-audit.json'))
   assert.ok(manifest.platform.includes('README.md'))
   assert.ok(manifest.forge.includes('forge/'))

@@ -1,8 +1,9 @@
 ---
+scope: foundation
 title: 前端应用与应用壳
 status: active
 owner: maintainers
-updated: 2026-08-12
+updated: 2026-10-03
 ---
 
 # 前端应用与应用壳
@@ -34,7 +35,7 @@ updated: 2026-08-12
 - `src/foundation/bootstrap/registerHttpErrorHandler.ts`：组装 Router、认证、导航和全局 HTTP 错误动作。
 - `src/foundation/components/layout/` 与 `src/foundation/layouts/AdminLayout.vue`：桌面级联顶部导航、移动侧栏抽屉、顶栏和内容出口；头像下拉菜单可打开个人资料页。
 - `src/foundation/modules/tag-view/`：账号隔离的页面标签历史、浏览器持久化和标签控制界面。
-- `src/foundation/modules/settings/`：设备级系统界面偏好、版本化浏览器持久化、设置 Dialog，以及主题颜色与深色模式的应用根控制器；登录页通过 auth 模块私有入口消费其 Store 与主题元数据。
+- `src/foundation/modules/settings/`：设备级系统界面偏好、版本化浏览器持久化、设置抽屉，以及主题颜色与深色模式的应用根控制器；登录页通过 auth 模块私有入口消费其 Store 与主题元数据。
 - `src/foundation/modules/localization/`：默认中文的运行时语言状态、模块和 shared 资源发现、Element Plus
   语言包、日期格式化和语言切换器。
 - `src/foundation/layouts/EmptyLayout.vue`：只提供一个 `<router-view>` 的可选布局。
@@ -75,11 +76,11 @@ Element Plus 提供当前语言包。登录页与 Header 共用 `LanguageSwitche
 更新固定文案、`<html lang>`、页面标题和本地日期格式，并写入由 Platform `storagePrefix` 派生的版本化键。
 数据库与 API 契约不保存语言偏好。动态标题没有路由专属标题时使用 `PlatformConfig.fullName` 与 `PlatformConfig.name` 组合，Logo 下方的产品描述使用 `PlatformConfig.tagline` 的大写形式，登录页签名使用原始 `PlatformConfig.tagline`。
 
-`tag-view` 位于 Header 与主内容之间，历史标签可横向滚动，操作入口提供关闭当前、关闭其他和关闭全部。其版本化 `localStorage` 数据按 UUID 用户 ID 隔离；存储不可用或内容损坏时降级为内存状态，不影响 Router 导航。Header 用户下拉同时提供系统设置入口：该 Dialog 对设备级的导航菜单风格、主题颜色、深色模式、Tags View、侧栏 Logo 和动态标题设置逐项立即保存。导航菜单风格控制桌面导航布局；Tags View 控制标签栏可见性但不清空历史，并把应用主区的标签栏高度归零；侧栏 Logo 控制侧栏品牌区，移动抽屉在隐藏品牌时仍保留可访问的关闭按钮；动态标题打开时按当前路由与语言更新浏览器标题，关闭时始终显示 `PlatformConfig.name`。主题颜色和深色模式会立即控制应用根。具体边界见[系统设置模块](settings.md)。
+`tag-view` 位于 Header 与主内容之间，历史标签可横向滚动，操作入口提供关闭当前、关闭其他和关闭全部。其版本化 `localStorage` 数据按 UUID 用户 ID 隔离；存储不可用或内容损坏时降级为内存状态，不影响 Router 导航。Header 用户下拉同时提供系统设置入口：该抽屉 对设备级的导航菜单风格、主题颜色、深色模式、Tags View、侧栏 Logo 和动态标题设置逐项立即保存。导航菜单风格控制桌面导航布局；Tags View 控制标签栏可见性但不清空历史，并把应用主区的标签栏高度归零；侧栏 Logo 控制侧栏品牌区，移动抽屉在隐藏品牌时仍保留可访问的关闭按钮；动态标题打开时按当前路由与语言更新浏览器标题，关闭时始终显示 `PlatformConfig.name`。主题颜色和深色模式会立即控制应用根。具体边界见[系统设置模块](settings.md)。
 
 全局变量 `--app-shell-header-height` 定义应用壳顶部高度，当前值为 `72px`。顶部模式的桌面应用壳为单列布局，粘性 Header 保留一级菜单、标题路径和用户菜单；下拉菜单在 Header 层级内显示，避免被内容区裁切。侧边模式的桌面应用壳固定为双列布局，Header 仍保留侧栏开关。窄屏由 `matchMedia('(max-width: 1023px)')` 强制使用抽屉式侧边导航，窗口恢复后重用保存的桌面偏好。菜单打开按钮不按断点隐藏；抽屉打开时侧栏中的关闭按钮与遮罩可关闭它。
 
-布局注册表通过懒加载发现 `src/foundation/layouts/*.vue`。`AdminLayout` 是静态根壳和必备布局；`EmptyLayout` 可供菜单显式选择。Tailwind CSS 负责布局、间距、响应式和多数视觉样式，Element Plus 提供表单、表格、弹窗和反馈；全局 SCSS 按基础、管理布局、过渡和 Element Plus 组件覆盖拆分。其中 `styles/element-plus/el-dialog-override.scss` 将 `--el-dialog-margin-top` 统一设为 `5vh`，适用于所有未自行覆盖该变量的 `el-dialog`。六套主题通过语义 CSS 令牌同时驱动应用表面、Element Plus、首页 Hero、登录页、侧栏品牌区和健康状态；组件只保留与语义状态相关的成功、警告和错误颜色。用户、角色、部门、菜单和字典管理页面共用的内容容器最大宽度为 `1920px`，窄于该宽度时仍保持响应式占满可用空间。
+布局注册表通过懒加载发现 `src/foundation/layouts/*.vue`。`AdminLayout` 是静态根壳和必备布局；`EmptyLayout` 可供菜单显式选择。Tailwind CSS 负责布局、间距、响应式和多数视觉样式，Element Plus 提供表单、表格、弹窗和反馈；全局 SCSS 按基础、管理布局、过渡和 Element Plus 组件覆盖拆分。其中 `styles/element-plus/el-dialog-override.scss` 将 `--el-dialog-margin-top` 统一设为 `5vh`，适用于所有未自行覆盖该变量的 `el-dialog`。六套主题通过语义 CSS 令牌同时驱动应用表面、Element Plus、首页 Hero、登录页、侧栏品牌区和健康状态；组件只保留与语义状态相关的成功、警告和错误颜色。用户、角色、部门、菜单和字典管理页面共用的内容容器最大宽度为 `1600px`，窄于该宽度时仍保持响应式占满可用空间。
 
 ## 全局 HTTP 错误
 
@@ -93,3 +94,7 @@ Element Plus 提供当前语言包。登录页与 Header 共用 `LanguageSwitche
 - `useHealth` 会在传输异常、超时或无效响应时更新错误状态；系统化可访问性审计和生产环境 API 地址策略尚未补齐。
 
 初始版本之前的前端应用壳和注册表取舍保留在[归档索引](../../archive/README.md)，当前行为以本设计和维护者实现为准。
+
+## PRISM 应用壳与品牌图
+
+公共组件 `src/foundation/components/platform/PlatformArtwork.vue` 消费 `PlatformDefinition.brand.artwork?: string`，展示可选本地品牌图片；未配置时渲染中性几何结构。Foundation 不导入 CYBER 图片。应用壳侧栏为 224px，Header 80px，Tags View 44px；窄屏保持菜单抽屉。页面采用 4–8px 圆角、细边界与主题无关的中性背景。共享 CSS 来源为[主题令牌模块](design-tokens.md)。用户、角色、组织与系统编辑器使用侧边抽屉，保存期间禁用表单和关闭操作。

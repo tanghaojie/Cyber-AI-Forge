@@ -4,8 +4,8 @@ export const localizationResource = defineLocalizationResource('home', {
   'zh-CN': {
     'overview.label': '工作台总览',
     'hero.kicker': 'CYBER AI FORGE · 工作台简报',
-    'hero.lineOne': '让系统脉络可见，',
-    'hero.lineTwo': '让每次变更有据可循。',
+    'hero.lineOne': '让复杂系统，',
+    'hero.lineTwo': '清晰生长。',
     'hero.description':
       '{name} 把企业应用所需的模块边界、共享运行时契约与管理基础能力放在同一张工程蓝图里，让 AI 和人类可以持续协作、持续交付。',
     'hero.systemIndex': '可访问入口',
@@ -36,8 +36,8 @@ export const localizationResource = defineLocalizationResource('home', {
   'en-US': {
     'overview.label': 'Dashboard overview',
     'hero.kicker': 'CYBER AI FORGE · WORKSPACE BRIEF',
-    'hero.lineOne': 'Make the system visible.',
-    'hero.lineTwo': 'Make every change traceable.',
+    'hero.lineOne': 'Build with clarity.',
+    'hero.lineTwo': 'Evolve with confidence.',
     'hero.description':
       '{name} puts the module boundaries, shared runtime contracts, and management foundations for enterprise applications on one engineering blueprint for continuous human–AI delivery.',
     'hero.systemIndex': 'ACCESSIBLE ENTRY POINTS',

@@ -1,8 +1,9 @@
 ---
+scope: foundation
 title: 菜单模块
 status: active
 owner: maintainers
-updated: 2026-08-10
+updated: 2026-10-03
 ---
 
 # 菜单模块
@@ -54,3 +55,7 @@ updated: 2026-08-10
 本次默认菜单基线修正的实施证据见[完成计划](../../archive/plans/2026-07-30-default-menu-baseline.md)和 [AI 协作记录](../../archive/ai-logs/2026/07/2026-07-30-default-menu-baseline.md)。
 
 关于项目和工作台菜单都直接存在于 `0000_initial_uuidv7_foundation_schema.sql`。关于项目使用 `/about`、`about`、`AdminLayout` 且不绑定权限键；工作台使用 `/`、`home`、`AdminLayout`、`home.read` 和最小默认排序。初始超级管理员获得 `home.read`，其他账号必须由角色授权后才显示工作台。
+
+## PRISM 呈现
+
+管理页使用统一页面标题、检索工具栏、66px 数据行、语义状态与命名操作按钮；编辑器改用侧边抽屉，保留已有字段、校验、公共接口与 API。保存期间禁用表单和关闭操作，窄屏抽屉占满视口。前端响应式与 CRUD 由维护者人工验收。

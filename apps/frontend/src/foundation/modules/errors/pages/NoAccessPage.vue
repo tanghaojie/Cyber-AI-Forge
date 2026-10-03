@@ -25,9 +25,9 @@ const { t } = useLocalization()
 
 .no-access-page__code {
   color: var(--primary-deep);
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: clamp(72px, 14vw, 144px);
-  font-weight: 900;
+  font-weight: 400;
   letter-spacing: -0.08em;
   line-height: 0.9;
 }
@@ -36,14 +36,14 @@ p {
   margin: 28px 0 10px;
   color: var(--primary-deep);
   font-size: 10px;
-  font-weight: 900;
+  font-weight: 400;
   letter-spacing: 0.22em;
 }
 
 h2 {
   margin: 0;
   color: var(--ink);
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: clamp(24px, 4vw, 38px);
 }
 

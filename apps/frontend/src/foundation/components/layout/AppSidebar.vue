@@ -10,7 +10,7 @@
   >
     <div class="sidebar-atmosphere" />
     <header v-if="showLogo" class="sidebar-brand">
-      <CyberLogo class="sidebar-logo" tone="light" />
+      <CyberLogo class="sidebar-logo" tone="dark" />
       <button
         v-if="drawer"
         class="sidebar-close"
@@ -88,154 +88,106 @@ const { formatDateTime, t } = useLocalization()
   z-index: 10;
   display: flex;
   width: var(--app-sidebar-width);
-  height: 100vh;
   height: 100dvh;
   overflow: hidden;
   flex-direction: column;
-  color: var(--sidebar-text);
-  background: linear-gradient(180deg, var(--sidebar-surface) 0%, var(--sidebar-surface-deep) 100%);
-  box-shadow: 12px 0 36px color-mix(in srgb, var(--sidebar-surface-deep), transparent 72%);
+  color: var(--ink);
+  background: var(--sidebar-surface);
+  border-right: 1px solid var(--line);
 }
-
 .app-sidebar--drawer {
   position: fixed;
   inset: 0 auto 0 0;
   z-index: 40;
   width: min(280px, calc(100vw - 48px));
   visibility: hidden;
-  box-shadow: 18px 0 48px color-mix(in srgb, var(--sidebar-surface-deep), transparent 58%);
-  pointer-events: none;
-  transform: translate3d(-100%, 0, 0);
-  transition:
-    transform 0.3s ease,
-    visibility 0s linear 0.3s;
+  transform: translateX(-100%);
+  transition: transform 0.2s ease;
 }
-
 .app-sidebar--drawer.app-sidebar--open {
   visibility: visible;
-  pointer-events: auto;
-  transform: translate3d(0, 0, 0);
-  transition-delay: 0s;
+  transform: translateX(0);
 }
-
 .sidebar-atmosphere {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(
-    circle at 16% 0,
-    color-mix(in srgb, var(--brand-accent), transparent 84%),
-    transparent 30%
-  );
+  display: none;
 }
-
 .sidebar-brand {
-  position: relative;
   display: flex;
-  height: var(--app-shell-header-height);
-  flex: 0 0 var(--app-shell-header-height);
   align-items: center;
   gap: 12px;
-  padding: 0 24px;
-  border-bottom: 1px solid var(--sidebar-line);
-
-  .sidebar-logo {
-    --cyber-logo-mark-size: 42px;
-    --cyber-logo-wordmark-size: 15px;
-    --cyber-logo-descriptor-size: 7px;
-  }
+  height: var(--app-shell-header-height);
+  flex: 0 0 var(--app-shell-header-height);
+  padding: 0 22px;
+  border-bottom: 1px solid var(--line);
 }
-
+.sidebar-logo {
+  --cyber-logo-mark-size: 32px;
+  --cyber-logo-wordmark-size: 14px;
+  --cyber-logo-descriptor-size: 7px;
+}
 .sidebar-close {
   display: grid;
-  width: 34px;
-  height: 34px;
-  margin-left: auto;
   place-items: center;
-  border: 0;
-  border-radius: 11px;
-  color: var(--sidebar-muted);
-  background: var(--sidebar-surface-hover);
+  width: 36px;
+  height: 36px;
+  margin-left: auto;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
 }
-
 .sidebar-close--floating {
   position: absolute;
-  z-index: 1;
-  top: 19px;
-  right: 24px;
-  margin-left: 0;
+  top: 16px;
+  right: 16px;
 }
-
 .sidebar-navigation {
-  position: relative;
   overflow-y: auto;
   flex: 1;
-  padding: 22px 12px;
+  padding: 24px 12px;
 }
-
 .app-sidebar--drawer.app-sidebar--without-logo .sidebar-navigation {
   padding-top: 70px;
 }
-
 .sidebar-status {
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 11px;
-  margin: 12px;
-  padding: 15px;
-  border: 1px solid var(--sidebar-line);
-  border-radius: 16px;
-  background: var(--sidebar-surface-soft);
-
-  b {
-    display: block;
-    color: var(--sidebar-text);
-    font-size: 10px;
-  }
-
-  small {
-    display: block;
-    margin-top: 4px;
-    color: var(--sidebar-faint);
-    font-size: 7px;
-    letter-spacing: 0.12em;
-  }
+  gap: 12px;
+  margin: 0 20px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
 }
-
+.sidebar-status b {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.sidebar-status small {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font: 10px var(--font-mono);
+}
 .status-pulse {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: var(--success);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--success), transparent 86%);
-
-  &.loading {
-    background: var(--sidebar-text);
-    box-shadow: 0 0 0 6px var(--sidebar-surface-hover);
-  }
-
-  &.error {
-    background: var(--danger);
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--danger), transparent 86%);
-  }
 }
-
+.status-pulse.loading {
+  background: var(--muted);
+}
+.status-pulse.error {
+  background: var(--danger);
+}
 .sidebar-empty {
   display: grid;
   min-height: 100px;
   place-items: center;
-  align-content: center;
-  gap: 10px;
-  color: var(--sidebar-faint);
-  font-size: 10px;
-
-  span {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--success);
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--success), transparent 86%);
-  }
+  padding: 16px;
+  color: var(--muted);
+  font-size: 12px;
 }
 </style>

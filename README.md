@@ -96,25 +96,25 @@ AI 可以继续完成数据库设计、Schema 定义、后端路由、前端页�
 
 ## <img src="./forge/website/src/assets/readme-icons/system.svg" alt="" width="20" height="20" /> 03 / 系统界面
 
-README 中展示的截图来自仓库内可运行的管理端界面，覆盖登录入口、工作台、用户与菜单管理、角色权限、接口日志和系统设置。截图仅用于说明当前能力，不代表接入了远程演示环境。
+以下展示 PRISM 界面设计预览，覆盖登录、工作台、用户、菜单、角色权限、接口日志和设置。图中为示例数据，不是运行截图；实际功能与响应式表现以本地应用和人工验收为准。
 
 <div align="center">
-  <img src="./forge/website/src/assets/screenshots/login.png" alt="Cyber AI Forge 登录页" width="49%" />
-  <img src="./forge/website/src/assets/screenshots/home.png" alt="Cyber AI Forge 工作台" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/login.png" alt="Cyber AI Forge 登录页" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/home.png" alt="Cyber AI Forge 工作台" width="49%" />
 </div>
 
 <div align="center">
-  <img src="./forge/website/src/assets/screenshots/users.png" alt="Cyber AI Forge 用户管理" width="49%" />
-  <img src="./forge/website/src/assets/screenshots/menus.png" alt="Cyber AI Forge 菜单管理" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/users.png" alt="Cyber AI Forge 用户管理" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/menus.png" alt="Cyber AI Forge 菜单管理" width="49%" />
 </div>
 
 <div align="center">
-  <img src="./forge/website/src/assets/screenshots/roles.png" alt="Cyber AI Forge 角色管理与数据权限" width="49%" />
-  <img src="./forge/website/src/assets/screenshots/api-logs.png" alt="Cyber AI Forge 接口日志" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/roles.png" alt="Cyber AI Forge 角色管理与数据权限" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/api-logs.png" alt="Cyber AI Forge 接口日志" width="49%" />
 </div>
 
 <div align="center">
-  <img src="./forge/website/src/assets/screenshots/settings.png" alt="Cyber AI Forge 系统设置" width="49%" />
+  <img src="./forge/website/src/assets/design-previews/settings.png" alt="Cyber AI Forge 系统设置" width="49%" />
 </div>
 
 ## <img src="./forge/website/src/assets/readme-icons/people.svg" alt="" width="20" height="20" /> 04 / 适合谁使用

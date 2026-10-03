@@ -11,3 +11,5 @@
 - [2026-08-12 Platform 环境变量配置收敛](ai-logs/2026/08/2026-08-12-runtime-configuration.md)
 
 Sight 等业务平台在自己的仓库维护本目录。
+
+- 2026-10-03：PRISM 跨作用域审查完成，记录见 [Foundation 审查计划](../../foundation/archive/plans/2026-10-03-prism-archive-review.md)。当前视觉规范已原地更新，历史画面可由 Git 查询。

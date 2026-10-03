@@ -15,7 +15,7 @@
       </div>
     </section>
     <div class="brand-corner">
-      <CyberLogo :show-descriptor="false" tone="light" />
+      <CyberLogo :show-descriptor="false" tone="dark" />
     </div>
   </main>
 </template>
@@ -43,127 +43,69 @@ function goBack(): void {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .not-found-page {
   position: relative;
-  min-height: 100vh;
   display: grid;
   place-items: center;
-  overflow: hidden;
-  padding: 30px;
-  color: var(--hero-foreground);
-  background:
-    radial-gradient(
-      circle at 50% 42%,
-      color-mix(in srgb, var(--brand-accent), transparent 80%),
-      transparent 28%
-    ),
-    var(--hero-end);
-}
-.not-found-grid {
-  position: absolute;
-  inset: 0;
-  opacity: 0.11;
-  background-image:
-    linear-gradient(
-      color-mix(in srgb, var(--hero-foreground), transparent 90%) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--hero-foreground), transparent 90%) 1px,
-      transparent 1px
-    );
-  background-size: 56px 56px;
-  mask-image: radial-gradient(circle, #000, transparent 72%);
-}
-section {
-  position: relative;
-  z-index: 1;
-  max-width: 680px;
+  min-height: 100dvh;
+  padding: 80px 24px;
+  background: var(--canvas);
+  color: var(--ink);
   text-align: center;
 }
 .error-code {
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  font-size: clamp(90px, 18vw, 180px);
-  font-weight: 900;
-  letter-spacing: -0.12em;
-  line-height: 0.8;
+  gap: 12px;
+  color: var(--primary);
+  font: clamp(80px, 15vw, 160px)/1 var(--font-mono);
+  letter-spacing: -0.08em;
 }
 .error-code i {
-  display: grid;
-  width: 0.62em;
-  height: 0.62em;
-  place-items: center;
-  margin: 0 0.07em;
-  border: 1px solid color-mix(in srgb, var(--brand-accent), transparent 52%);
-  border-radius: 50%;
-  color: var(--brand-accent);
-  font-size: 0.48em;
   font-style: normal;
-  box-shadow: inset 0 0 40px color-mix(in srgb, var(--brand-accent), transparent 88%);
 }
-section > p {
-  margin: 36px 0 12px;
-  color: var(--brand-accent);
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.25em;
+.not-found-page p {
+  color: var(--muted);
+  font: 11px var(--font-mono);
+  letter-spacing: 0.14em;
+  margin-top: 32px;
 }
-h1 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(25px, 4vw, 38px);
-  letter-spacing: -0.04em;
+.not-found-page h1 {
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
 }
 .description {
   display: block;
-  max-width: 540px;
-  margin: 18px auto 0;
-  color: var(--hero-muted);
-  font-size: 13px;
+  max-width: 480px;
+  color: var(--muted);
+  font-size: 14px;
   line-height: 1.8;
 }
-code {
-  display: inline-block;
-  max-width: 100%;
-  overflow: hidden;
-  margin-top: 20px;
-  padding: 8px 13px;
-  border: 1px solid color-mix(in srgb, var(--hero-foreground), transparent 90%);
-  border-radius: 10px;
-  color: var(--hero-meta);
-  background: color-mix(in srgb, var(--hero-foreground), transparent 96%);
-  font-size: 10px;
-  text-overflow: ellipsis;
+.not-found-page code {
+  display: block;
+  overflow-wrap: anywhere;
+  margin: 24px auto;
+  color: var(--muted);
+  font: 12px var(--font-mono);
 }
 .actions {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 30px;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.actions :deep(.el-button) {
+  margin: 0;
 }
 .brand-corner {
   position: absolute;
-  right: 28px;
-  bottom: 24px;
-  display: flex;
-  align-items: center;
+  left: 32px;
+  top: 28px;
 }
-.brand-corner :deep(.cyber-logo) {
-  --cyber-logo-mark-size: 34px;
-  --cyber-logo-wordmark-size: 11px;
-}
-@media (max-width: 540px) {
-  .actions {
-    flex-direction: column;
-  }
-  .brand-corner {
-    right: 50%;
-    transform: translateX(50%);
-  }
+.not-found-grid {
+  display: none;
 }
 </style>

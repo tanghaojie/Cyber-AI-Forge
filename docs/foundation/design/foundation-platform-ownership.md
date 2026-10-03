@@ -1,8 +1,9 @@
 ---
+scope: foundation
 title: Forge、Foundation 与 Platform 所有权边界
 status: accepted
 owner: project maintainers
-updated: 2026-08-18
+updated: 2026-10-03
 ---
 
 # Forge、Foundation 与 Platform 所有权边界
@@ -76,3 +77,7 @@ Sight 当前没有业务表、业务迁移或需要保留的数据，因此本�
 - 同步工具在临时 Git 仓库覆盖 README、Platform、Forge、未知路径、迁移和验证失败场景。
 
 当前实现通过 `.forge-sync.yml` 显式分类路径，`pnpm architecture:check` 检查旧目录和反向依赖，`pnpm forge:sync -- --upstream-ref <ref>` 执行无提交合并、保留 Platform/README、排除 Forge、拒绝未知路径并运行验证。集成控制文件仍进入差异报告，需要下游维护者在验证后人工完成合并提交。
+
+## PRISM 样式包
+
+`packages/design-tokens/**` 是 Foundation 同步内容，包括 workspace manifest 和公开主题资源；它不依赖 Platform 或 Forge。前端与推广站分别声明 workspace 依赖，前端 package.json 和根锁文件作为 Integration 审阅。`brand.artwork` 为可选注入口，CYBER 图片和默认首页仍位于 Platform，推广设计图位于 Forge，均不覆盖下游品牌。

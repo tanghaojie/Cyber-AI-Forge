@@ -185,194 +185,107 @@ async function savePassword(): Promise<void> {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .profile-page {
-  width: min(100%, 1120px);
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: auto;
 }
-
 .profile-page__hero {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 24px;
+  display: flex;
   align-items: center;
-  overflow: hidden;
-  padding: 30px;
-  border-radius: 28px;
-  color: var(--hero-foreground);
-  background:
-    linear-gradient(125deg, var(--hero-start), var(--hero-end)),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 34px,
-      color-mix(in srgb, var(--hero-foreground), transparent 96%) 34px 35px
-    );
-  box-shadow: 0 22px 58px color-mix(in srgb, var(--hero-start), transparent 72%);
+  gap: 24px;
+  margin-bottom: 40px;
 }
-
-.profile-page__hero::after {
-  position: absolute;
-  top: -80px;
-  right: 21%;
-  width: 230px;
-  height: 230px;
-  border: 1px solid color-mix(in srgb, var(--brand-accent), transparent 52%);
-  border-radius: 50%;
-  box-shadow: 0 0 0 28px color-mix(in srgb, var(--brand-accent), transparent 94%);
-  content: '';
-}
-
-.profile-page__identity-mark,
-.profile-page__hero > div,
-.profile-page__account {
-  position: relative;
-  z-index: 1;
-}
-
 .profile-page__identity-mark {
   display: grid;
-  width: 68px;
-  height: 68px;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--brand-accent), transparent 30%);
-  border-radius: 22px;
-  color: var(--brand-accent);
-  background: color-mix(in srgb, var(--ink), transparent 20%);
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 900;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--primary);
+  background: var(--surface);
+  font-size: 28px;
 }
-
-.profile-page__hero p,
-.profile-card__heading p {
+.profile-page__hero p {
   margin: 0;
-  color: var(--brand-accent);
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.2em;
+  color: var(--primary);
+  font: 11px var(--font-mono);
+  letter-spacing: 0.1em;
 }
-
 .profile-page__hero h2 {
-  margin: 8px 0 7px;
-  font-family: var(--font-display);
-  font-size: clamp(27px, 4vw, 38px);
-  letter-spacing: -0.045em;
+  margin: 8px 0;
+  font-size: 32px;
+  font-weight: 500;
 }
-
 .profile-page__hero span {
-  color: var(--hero-muted);
+  color: var(--muted);
   font-size: 13px;
 }
-
 .profile-page__account {
+  margin-left: auto;
   display: grid;
-  min-width: 150px;
-  gap: 6px;
-  padding-left: 24px;
-  border-left: 1px solid color-mix(in srgb, var(--hero-muted), transparent 68%);
+  gap: 8px;
 }
-
 .profile-page__account small {
-  color: var(--hero-meta);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
+  color: var(--muted);
 }
-
 .profile-page__account b {
-  overflow: hidden;
-  font-size: 14px;
-  text-overflow: ellipsis;
+  font: 13px var(--font-mono);
 }
-
 .profile-page__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 18px;
+  gap: 24px;
+  align-items: start;
 }
-
 .profile-card {
-  min-height: 390px;
-  padding: 28px;
+  padding: 32px;
   border: 1px solid var(--line);
-  border-radius: 26px;
-  background: color-mix(in srgb, var(--surface), transparent 8%);
-  box-shadow: 0 16px 42px color-mix(in srgb, var(--ink), transparent 96%);
+  border-radius: 6px;
+  background: var(--surface);
 }
-
-.profile-card--security {
-  background:
-    linear-gradient(
-      148deg,
-      color-mix(in srgb, var(--primary-mist), transparent 38%),
-      transparent 56%
-    ),
-    var(--surface);
-}
-
 .profile-card__heading {
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 25px;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
 }
-
+.profile-card__heading p {
+  margin: 0;
+  color: var(--muted);
+  font: 10px var(--font-mono);
+  letter-spacing: 0.1em;
+}
 .profile-card__heading h3 {
-  margin: 8px 0 0;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 21px;
-  letter-spacing: -0.035em;
+  margin: 10px 0 0;
+  font-size: 20px;
+  font-weight: 500;
 }
-
-.profile-card__signal {
-  width: 10px;
-  height: 10px;
-  margin-top: 7px;
-  border-radius: 50%;
-  background: var(--primary-deep);
-  box-shadow: 0 0 0 7px var(--primary-mist);
-}
-
+.profile-card__signal,
 .profile-card__lock {
-  display: grid;
-  width: 32px;
-  height: 32px;
-  place-items: center;
-  border-radius: 11px;
-  color: var(--primary-deep);
-  background: var(--primary-mist);
-  font-family: var(--font-display);
-  font-weight: 900;
+  display: none;
 }
-
 .profile-card__hint {
-  min-height: 36px;
-  margin: -7px 0 18px;
   color: var(--muted);
   font-size: 12px;
-  line-height: 1.55;
+  line-height: 1.8;
+  margin-bottom: 24px;
 }
-
-@media (max-width: 760px) {
-  .profile-page__hero {
-    grid-template-columns: auto minmax(0, 1fr);
-    padding: 24px;
-  }
-
-  .profile-page__account {
-    grid-column: 1 / -1;
-    padding-top: 14px;
-    padding-left: 0;
-    border-top: 1px solid color-mix(in srgb, var(--hero-muted), transparent 68%);
-    border-left: 0;
-  }
-
+@media (max-width: 800px) {
   .profile-page__grid {
     grid-template-columns: 1fr;
+  }
+  .profile-page__account {
+    display: none;
+  }
+  .profile-page__identity-mark {
+    display: none;
+  }
+  .profile-card {
+    padding: 24px;
   }
 }
 </style>

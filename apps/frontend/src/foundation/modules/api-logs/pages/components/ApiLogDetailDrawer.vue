@@ -3,7 +3,7 @@
     v-model="drawerOpen"
     :title="t('api-logs.detail.title')"
     direction="rtl"
-    size="min(460px, calc(100vw - 24px))"
+    size="min(600px, 100vw)"
     append-to-body
   >
     <dl class="log-detail-grid">

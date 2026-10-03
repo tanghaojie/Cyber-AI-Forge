@@ -1,6 +1,6 @@
 <template>
   <div class="surface-card api-log-card">
-    <form class="api-log-filters" @submit.prevent="search">
+    <form class="api-log-filters prism-log-filters" @submit.prevent="search">
       <el-form-item :label="t('api-logs.filters.occurredAt')">
         <el-date-picker
           v-model="filters.occurredRange"
@@ -128,6 +128,7 @@
             text
             :icon="View"
             :title="t('api-logs.actions.details')"
+            :aria-label="t('api-logs.actions.details')"
             @click="openDetails(row)"
           />
         </template>
@@ -369,5 +370,11 @@ onMounted(load)
   .filter-actions .el-button {
     flex: 1;
   }
+}
+.prism-log-filters {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  margin-bottom: 20px;
 }
 </style>

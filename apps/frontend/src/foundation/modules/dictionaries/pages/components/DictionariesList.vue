@@ -33,7 +33,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="label" :label="t('dictionaries.fields.label')" min-width="150" />
-      <el-table-column prop="value" :label="t('dictionaries.fields.value')" min-width="170" />
+      <el-table-column prop="value" :label="t('dictionaries.fields.value')" min-width="170"
+        ><template #default="{ row }"
+          ><code class="code-chip">{{ row.value }}</code></template
+        ></el-table-column
+      >
       <el-table-column
         prop="remark"
         :label="t('dictionaries.fields.remark')"
@@ -43,15 +47,28 @@
       <el-table-column prop="sortOrder" :label="t('dictionaries.fields.order')" width="80" />
       <el-table-column :label="t('dictionaries.fields.status')" width="100">
         <template #default="{ row }">
-          <el-tag :type="row.enabled ? 'success' : 'info'" round>
-            {{ row.enabled ? t('shared.state.enabled') : t('shared.state.disabled') }}
-          </el-tag>
+          <span class="status-label" :class="{ 'is-enabled': row.enabled }">{{
+            row.enabled ? t('shared.state.enabled') : t('shared.state.disabled')
+          }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="t('dictionaries.fields.actions')" width="112" fixed="right">
         <template #default="{ row }">
-          <el-button circle text :icon="EditPen" @click="emit('edit', row)" />
-          <el-button circle text type="danger" :icon="Delete" @click="remove(row)" />
+          <el-button
+            circle
+            text
+            :aria-label="t('shared.actions.edit')"
+            :icon="EditPen"
+            @click="emit('edit', row)"
+          />
+          <el-button
+            circle
+            text
+            type="danger"
+            :aria-label="t('shared.actions.delete')"
+            :icon="Delete"
+            @click="remove(row)"
+          />
         </template>
       </el-table-column>
     </el-table>

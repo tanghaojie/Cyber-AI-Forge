@@ -2,6 +2,15 @@ import { defineLocalizationResource } from '@/foundation/shared/localization/loc
 
 export const localizationResource = defineLocalizationResource('users', {
   'zh-CN': {
+    'fields.identity': '成员 / 账号',
+    'fields.organization': '主部门 / 岗位',
+    'editor.identity': '基本信息',
+    'editor.permissions': '功能权限',
+    'editor.scope': '数据范围',
+
+    'page.kicker': 'IDENTITY / USERS',
+    'page.description': '管理成员身份、组织归属和访问权限。',
+
     'views.users': '用户管理',
     'views.profile': '个人资料',
     'page.add': '新增用户',
@@ -75,6 +84,15 @@ export const localizationResource = defineLocalizationResource('users', {
     'profile.errors.passwordSaveFailed': '密码更新失败',
   },
   'en-US': {
+    'fields.identity': 'Member / Account',
+    'fields.organization': 'Department / Positions',
+    'editor.identity': 'Identity',
+    'editor.permissions': 'Permissions',
+    'editor.scope': 'Data scope',
+
+    'page.kicker': 'IDENTITY / USERS',
+    'page.description': 'Manage identities, organization membership and access.',
+
     'views.users': 'User management',
     'views.profile': 'Personal profile',
     'page.add': 'Add user',

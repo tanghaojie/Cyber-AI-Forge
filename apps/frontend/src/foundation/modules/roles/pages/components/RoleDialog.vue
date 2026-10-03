@@ -1,46 +1,52 @@
 <template>
-  <el-dialog
+  <el-drawer
     v-model="dialogOpen"
     :title="role ? t('roles.dialog.editTitle') : t('roles.dialog.createTitle')"
-    width="min(920px, calc(100vw - 32px))"
-    :close-on-click-modal="!saving"
+    size="min(696px, 100vw)"
+    :close-on-click-modal="false"
+    :close-on-press-escape="!saving"
+    :show-close="!saving"
   >
-    <el-form label-position="top" @submit.prevent="submit">
-      <div class="form-columns">
-        <el-form-item :label="t('roles.fields.name')" class="sm:col-span-2" required>
-          <el-input v-model.trim="form.name" :placeholder="t('roles.dialog.namePlaceholder')" />
-        </el-form-item>
-        <el-form-item :label="t('roles.fields.description')" class="sm:col-span-2">
-          <el-input
-            v-model="form.description"
-            type="textarea"
-            :rows="3"
-            :placeholder="t('roles.dialog.descriptionPlaceholder')"
-          />
-        </el-form-item>
-        <el-form-item :label="t('roles.fields.permissions')" class="sm:col-span-2">
-          <el-checkbox-group v-model="access.permissionKeys" class="permission-grid">
-            <el-checkbox
-              v-for="permission in permissions"
-              :key="permission.key"
-              :value="permission.key"
-              border
-            >
-              <span>{{ permissionLabel(permission) }}</span>
-              <small>{{ permission.key }}</small>
-            </el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-        <el-form-item :label="t('roles.fields.status')" class="sm:col-span-2">
-          <el-switch
-            v-model="form.enabled"
-            :active-text="t('shared.state.enabled')"
-            :inactive-text="t('shared.state.disabled')"
-          />
-        </el-form-item>
-      </div>
-      <!-- 角色基本资料、功能权限和数据策略在一次用户操作中分两步写入后端。 -->
-      <DataPolicyEditor v-model="access.dataPolicies" />
+    <el-form :disabled="saving" label-position="top" @submit.prevent="submit">
+      <el-tabs v-model="editorTab"
+        ><el-tab-pane name="identity" :label="t('roles.editor.identity')"
+          ><div class="form-columns">
+            <el-form-item :label="t('roles.fields.name')" class="sm:col-span-2" required>
+              <el-input v-model.trim="form.name" :placeholder="t('roles.dialog.namePlaceholder')" />
+            </el-form-item>
+            <el-form-item :label="t('roles.fields.description')" class="sm:col-span-2">
+              <el-input
+                v-model="form.description"
+                type="textarea"
+                :rows="3"
+                :placeholder="t('roles.dialog.descriptionPlaceholder')"
+              />
+            </el-form-item>
+            <el-form-item :label="t('roles.fields.status')" class="sm:col-span-2">
+              <el-switch
+                v-model="form.enabled"
+                :active-text="t('shared.state.enabled')"
+                :inactive-text="t('shared.state.disabled')"
+              />
+            </el-form-item></div></el-tab-pane
+        ><el-tab-pane name="permissions" :label="t('roles.editor.permissions')">
+          <el-form-item :label="t('roles.fields.permissions')" class="sm:col-span-2">
+            <el-checkbox-group v-model="access.permissionKeys" class="permission-grid">
+              <el-checkbox
+                v-for="permission in permissions"
+                :key="permission.key"
+                :value="permission.key"
+                border
+              >
+                <span>{{ permissionLabel(permission) }}</span>
+                <small>{{ permission.key }}</small>
+              </el-checkbox>
+            </el-checkbox-group>
+          </el-form-item> </el-tab-pane
+        ><el-tab-pane name="scope" :label="t('roles.editor.scope')">
+          <!-- 角色基本资料、功能权限和数据策略在一次用户操作中分两步写入后端。 -->
+          <DataPolicyEditor v-model="access.dataPolicies" /></el-tab-pane
+      ></el-tabs>
       <el-alert v-if="formError" :title="formError" type="error" show-icon :closable="false" />
       <div class="dialog-actions">
         <el-button @click="dialogOpen = false">{{ t('shared.actions.cancel') }}</el-button>
@@ -49,13 +55,14 @@
         </el-button>
       </div>
     </el-form>
-  </el-dialog>
+  </el-drawer>
 </template>
 
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import type {
+  EntityId,
   PermissionSummary,
   RoleRequest,
   RoleSummary,
@@ -79,9 +86,11 @@ const emit = defineEmits<{
 const dialogOpen = defineModel<boolean>({ required: true })
 
 const permissions = ref<PermissionSummary[]>([])
+const editorTab = ref('identity')
 const saving = ref(false)
 const accessReady = ref(true)
 const formError = ref('')
+const savedEntityId = ref<EntityId | null>(null)
 const { resolveLocalizedLabel, t } = useLocalization()
 const form = reactive<RoleRequest>({
   name: '',
@@ -98,6 +107,8 @@ function permissionLabel(permission: PermissionSummary): string {
 }
 
 function resetForm(): void {
+  editorTab.value = 'identity'
+  savedEntityId.value = null
   // 复制权限数组和策略对象，避免弹窗编辑过程污染列表或上次打开的状态。
   Object.assign(
     form,
@@ -121,15 +132,17 @@ async function submit(): Promise<void> {
       throw new Error(t('roles.errors.invalidForm'))
     }
     const payload: RoleRequest = { ...form }
-    const result = props.role ? await updateRole(props.role.id, payload) : await createRole(payload)
+    const entityId = savedEntityId.value ?? props.role?.id
+    const result = entityId ? await updateRole(entityId, payload) : await createRole(payload)
     if (result.status !== 0) {
       throw new Error(t('roles.errors.saveFailed'))
     }
-    const roleId = props.role?.id ?? result.data?.id
+    const roleId = savedEntityId.value ?? props.role?.id ?? result.data?.id
     if (!roleId) {
       throw new Error(t('roles.errors.missingId'))
     }
     // 新建角色取得主体 ID 后，才能整体替换该角色的功能权限和数据策略。
+    savedEntityId.value = roleId
     const accessResult = await replaceSubjectAccess('role', roleId, {
       permissionKeys: [...access.permissionKeys],
       dataPolicies: access.dataPolicies.map((policy) => ({
@@ -185,29 +198,31 @@ onMounted(async function loadPermissionOptions() {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .permission-grid {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--line);
 }
-
 .permission-grid .el-checkbox {
   width: 100%;
   height: auto;
+  min-height: 64px;
   margin: 0;
-  padding: 10px 12px;
+  padding: 14px 16px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
 }
-
 .permission-grid span,
 .permission-grid small {
   display: block;
 }
-
 .permission-grid small {
-  margin-top: 3px;
+  margin-top: 4px;
   color: var(--muted);
-  font-family: monospace;
+  font: 11px var(--font-mono);
 }
 </style>

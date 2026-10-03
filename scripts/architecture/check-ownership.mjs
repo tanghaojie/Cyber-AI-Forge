@@ -19,6 +19,7 @@ const forbiddenDirectories = [
   'packages/api-contract/src/modules',
 ]
 const foundationRoots = [
+  'packages/design-tokens/src/foundation',
   'apps/frontend/src/foundation',
   'apps/backend/src/foundation',
   'packages/api-contract/src/foundation',

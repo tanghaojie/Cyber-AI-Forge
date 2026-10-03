@@ -6,9 +6,13 @@
         <strong>{{ t('authorization.editor.title') }}</strong>
         <span>{{ t('authorization.editor.description') }}</span>
       </div>
-      <el-button size="small" :icon="Plus" @click="addPolicy">{{
-        t('authorization.editor.addRule')
-      }}</el-button>
+      <el-button
+        size="small"
+        :aria-label="t('shared.actions.add')"
+        :icon="Plus"
+        @click="addPolicy"
+        >{{ t('authorization.editor.addRule') }}</el-button
+      >
     </header>
     <el-alert v-if="loadError" :title="loadError" type="error" show-icon :closable="false" />
 
@@ -54,7 +58,13 @@
           :value="scope"
         />
       </el-select>
-      <el-button text type="danger" :icon="Delete" @click="removePolicy(index)" />
+      <el-button
+        text
+        type="danger"
+        :aria-label="t('shared.actions.delete')"
+        :icon="Delete"
+        @click="removePolicy(index)"
+      />
 
       <el-select
         v-if="policy.scopeType === 'custom_departments'"
@@ -177,55 +187,52 @@ onMounted(async function loadOptions() {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .policy-editor {
   display: grid;
-  gap: 12px;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--surface), var(--primary-mist) 36%);
+  gap: 20px;
+  padding: 20px 0;
 }
-
 .policy-editor header {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
 }
-
 .policy-editor header div {
   display: grid;
-  gap: 4px;
+  gap: 8px;
 }
-
+.policy-editor header strong {
+  font-size: 15px;
+  font-weight: 500;
+}
 .policy-editor header span {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
+  line-height: 1.7;
 }
-
 .policy-row {
   display: grid;
-  grid-template-columns: minmax(120px, 1fr) 100px minmax(150px, 1fr) auto;
-  align-items: center;
-  gap: 8px;
-  padding: 12px;
+  grid-template-columns: minmax(100px, 1fr) 100px minmax(130px, 1fr) auto;
+  gap: 12px;
+  padding: 20px 16px;
   border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
+  border-radius: 4px;
+  background: var(--surface-muted);
 }
-
 .department-picker {
   grid-column: 1 / 4;
 }
-
 @media (max-width: 680px) {
   .policy-row {
     grid-template-columns: 1fr;
   }
-
   .department-picker {
     grid-column: auto;
+  }
+  .policy-editor header {
+    flex-wrap: wrap;
   }
 }
 </style>

@@ -2,6 +2,9 @@ import { defineLocalizationResource } from '@/foundation/shared/localization/loc
 
 export const localizationResource = defineLocalizationResource('dictionaries', {
   'zh-CN': {
+    'page.kicker': 'REFERENCE / DICTIONARIES',
+    'page.description': '让业务标签与系统编码保持一致。',
+
     'views.dictionaries': '字典管理',
     'page.add': '新增字典项',
     'list.searchPlaceholder': '搜索类型、名称或字典值',
@@ -31,6 +34,9 @@ export const localizationResource = defineLocalizationResource('dictionaries', {
     'errors.invalidForm': '请完整填写字典类型、显示名称和字典值',
   },
   'en-US': {
+    'page.kicker': 'REFERENCE / DICTIONARIES',
+    'page.description': 'Keep business labels and system values aligned.',
+
     'views.dictionaries': 'Dictionary management',
     'page.add': 'Add dictionary item',
     'list.searchPlaceholder': 'Search type, label, or value',

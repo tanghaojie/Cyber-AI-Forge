@@ -1,0 +1,16 @@
+{
+  "name": "@cyber-ai-forge/design-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/foundation/modules/theme/theme.ts",
+    "./theme.css": "./src/foundation/modules/theme/theme.tokens.css"
+  },
+  "scripts": {
+    "build": "tsc --noEmit --target ES2022 --module ESNext --moduleResolution Bundler src/foundation/modules/theme/theme.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

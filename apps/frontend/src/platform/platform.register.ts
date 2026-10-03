@@ -1,4 +1,5 @@
 import type { App } from 'vue'
+import artwork from '@/platform/assets/prism-structure.png'
 import { runtimeConfig } from '@/config/runtime.config'
 import PlatformCreatorCredit from '@/platform/brand/CreatorCredit.vue'
 import PlatformLogo from '@/platform/brand/CyberLogo.vue'
@@ -18,6 +19,7 @@ export function installPlatform(app: App): void {
     config: runtimeConfig.platform,
     brand: {
       logo: PlatformLogo,
+      artwork,
       creatorCredit: PlatformCreatorCredit,
     },
   })

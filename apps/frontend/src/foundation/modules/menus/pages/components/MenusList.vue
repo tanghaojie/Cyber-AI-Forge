@@ -72,9 +72,9 @@
       </el-table-column>
       <el-table-column :label="t('menus.fields.status')" width="90">
         <template #default="{ row }">
-          <el-tag :type="row.enabled ? 'success' : 'info'" round>
-            {{ row.enabled ? t('shared.state.enabled') : t('shared.state.disabled') }}
-          </el-tag>
+          <span class="status-label" :class="{ 'is-enabled': row.enabled }">{{
+            row.enabled ? t('shared.state.enabled') : t('shared.state.disabled')
+          }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="t('menus.fields.actions')" width="150" fixed="right">
@@ -84,12 +84,26 @@
             circle
             text
             type="primary"
+            :aria-label="t('shared.actions.add')"
             :icon="Plus"
             :title="t('menus.list.addChild')"
             @click="emit('create', row.id)"
           />
-          <el-button circle text :icon="EditPen" @click="emit('edit', row)" />
-          <el-button circle text type="danger" :icon="Delete" @click="remove(row)" />
+          <el-button
+            circle
+            text
+            :aria-label="t('shared.actions.edit')"
+            :icon="EditPen"
+            @click="emit('edit', row)"
+          />
+          <el-button
+            circle
+            text
+            type="danger"
+            :aria-label="t('shared.actions.delete')"
+            :icon="Delete"
+            @click="remove(row)"
+          />
         </template>
       </el-table-column>
     </el-table>

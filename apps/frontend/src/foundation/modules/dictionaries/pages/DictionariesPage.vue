@@ -1,7 +1,18 @@
 <template>
   <section class="management-page" aria-labelledby="dictionaries-title">
     <header class="page-intro">
-      <el-button type="primary" :icon="Plus" size="large" @click="openCreate">
+      <div>
+        <p>{{ t('dictionaries.page.kicker') }}</p>
+        <h2 id="dictionaries-title">{{ t('dictionaries.views.dictionaries') }}</h2>
+        <span>{{ t('dictionaries.page.description') }}</span>
+      </div>
+      <el-button
+        type="primary"
+        :aria-label="t('shared.actions.add')"
+        :icon="Plus"
+        size="large"
+        @click="openCreate"
+      >
         {{ t('dictionaries.page.add') }}
       </el-button>
     </header>

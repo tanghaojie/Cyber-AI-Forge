@@ -74,3 +74,5 @@ pnpm docs:archive:check:ci
 Design/ADR，再将已被当前事实取代的 Design、文档、ADR、计划和 AI 协作记录归入 `archive/`。
 
 机器可读的共享触发策略位于 `archive/archive-policy.json`；仓库角色由根 `.archive-audit.json` 声明，Foundation、Forge、Platform 基线分别位于各自 `archive/archive-ledger.json`。下游只推进 Platform ledger。
+
+- [PRISM 下游升级指南](guides/prism-upgrade.md)：共享主题包、Integration 依赖合并及人工验收。

@@ -14,6 +14,7 @@ export interface PlatformConfig {
 export interface PlatformDefinition {
   config: Readonly<PlatformConfig>
   brand: {
+    artwork?: string
     logo: Component
     creatorCredit: Component
   }

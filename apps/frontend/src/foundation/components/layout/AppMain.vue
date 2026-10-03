@@ -26,7 +26,7 @@
 
 @media (min-width: 1024px) {
   .app-main {
-    padding: 36px 40px;
+    padding: 40px 48px;
   }
 }
 </style>

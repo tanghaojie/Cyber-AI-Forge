@@ -2,6 +2,16 @@ import { defineLocalizationResource } from '@/foundation/shared/localization/loc
 
 export const localizationResource = defineLocalizationResource('roles', {
   'zh-CN': {
+    'detail.noPermissions': '尚未授予功能权限',
+    'detail.scopeHint': '此处展示直接数据策略。自定义部门及完整规则请进入编辑查看。',
+
+    'editor.identity': '基本信息',
+    'editor.permissions': '功能权限',
+    'editor.scope': '数据范围',
+
+    'page.kicker': 'ACCESS / ROLES',
+    'page.description': '以职责划分角色，让授权范围清晰可查。',
+
     'views.roles': '角色管理',
     'page.add': '新增角色',
     'list.searchPlaceholder': '搜索角色名称',
@@ -32,6 +42,17 @@ export const localizationResource = defineLocalizationResource('roles', {
     'errors.accessLoadFailed': '权限配置加载失败',
   },
   'en-US': {
+    'detail.noPermissions': 'No functional permissions assigned',
+    'detail.scopeHint':
+      'Direct data policies are shown here. Open Edit for custom departments and complete rules.',
+
+    'editor.identity': 'Identity',
+    'editor.permissions': 'Permissions',
+    'editor.scope': 'Data scope',
+
+    'page.kicker': 'ACCESS / ROLES',
+    'page.description': 'Define responsibilities with clear, reviewable access.',
+
     'views.roles': 'Role management',
     'page.add': 'Add role',
     'list.searchPlaceholder': 'Search role name',

@@ -2,6 +2,9 @@ import { defineLocalizationResource } from '@/foundation/shared/localization/loc
 
 export const localizationResource = defineLocalizationResource('menus', {
   'zh-CN': {
+    'page.kicker': 'STRUCTURE / NAVIGATION',
+    'page.description': '组织页面与入口，构建清晰的导航层级。',
+
     'views.menus': '菜单管理',
     'page.add': '新增',
     'list.searchPlaceholder': '搜索菜单名称',
@@ -59,6 +62,9 @@ export const localizationResource = defineLocalizationResource('menus', {
     'errors.externalUrlInvalid': '外链按钮必须配置 http 或 https 地址',
   },
   'en-US': {
+    'page.kicker': 'STRUCTURE / NAVIGATION',
+    'page.description': 'Organize pages and entry points into a clear hierarchy.',
+
     'views.menus': 'Menu management',
     'page.add': 'Add',
     'list.searchPlaceholder': 'Search menu names',

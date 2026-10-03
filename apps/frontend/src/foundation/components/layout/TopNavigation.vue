@@ -138,12 +138,12 @@ function hasChildren(item: NavigationMenu): boolean {
   gap: 8px;
   padding: 0 11px;
   border: 0;
-  border-radius: 12px;
+  border-radius: 4px;
   color: var(--ink-soft);
   background: transparent;
   font: inherit;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 0.01em;
   line-height: 1;
   text-decoration: none;
@@ -163,7 +163,7 @@ function hasChildren(item: NavigationMenu): boolean {
   }
 
   &:focus-visible {
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary), transparent 78%);
+    box-shadow: none;
   }
 }
 
@@ -194,9 +194,9 @@ function hasChildren(item: NavigationMenu): boolean {
   gap: 2px;
   padding: 8px;
   border: 1px solid color-mix(in srgb, var(--line), transparent 10%);
-  border-radius: 16px;
+  border-radius: 4px;
   background: color-mix(in srgb, var(--surface), transparent 3%);
-  box-shadow: var(--shadow);
+  box-shadow: none;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-4px);
@@ -212,7 +212,7 @@ function hasChildren(item: NavigationMenu): boolean {
   min-height: 42px;
   justify-content: flex-start;
   padding: 0 10px;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 .top-navigation__list--submenu .top-navigation__chevron {

@@ -10,9 +10,9 @@ html body .el-message-box {
   max-width: 440px;
   padding: 24px;
   border: 1px solid var(--line);
-  border-radius: 22px;
+  border-radius: 4px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: none;
 }
 
 html body .el-message-box__header {
@@ -23,7 +23,7 @@ html body .el-message-box__title {
   color: var(--ink);
   font-family: var(--font-display);
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: -0.025em;
   line-height: 1.35;
 }
@@ -31,7 +31,7 @@ html body .el-message-box__title {
 html body .el-message-box__headerbtn {
   top: 10px;
   right: 10px;
-  border-radius: 10px;
+  border-radius: 4px;
 
   &:hover,
   &:focus-visible {
@@ -49,7 +49,7 @@ html body .el-message-box__status {
   flex: 0 0 40px;
   width: 40px;
   height: 40px;
-  border-radius: 13px;
+  border-radius: 4px;
   background: color-mix(in srgb, var(--danger), var(--surface) 88%);
   color: var(--danger);
   place-items: center;
@@ -77,7 +77,7 @@ html body .el-message-box__btns {
   .el-button {
     min-width: 84px;
     margin-left: 0;
-    font-weight: 750;
+    font-weight: 500;
   }
 
   .el-button.el-button--primary {
@@ -106,7 +106,7 @@ html body .el-message-box__btns {
 @media (max-width: 480px) {
   html body .el-message-box {
     padding: 20px;
-    border-radius: 18px;
+    border-radius: 4px;
   }
 
   html body .el-message-box__title {

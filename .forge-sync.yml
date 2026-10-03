@@ -1,4 +1,5 @@
 foundation:
+  - packages/design-tokens/
   - apps/frontend/src/foundation/
   - apps/frontend/env/.env.foundation.example
   - apps/backend/src/foundation/

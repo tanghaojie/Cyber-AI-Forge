@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@vue/server-renderer": "^3.5.35",
-    "vue": "^3.4.0"
+    "vue": "^3.4.0",
+    "@cyber-ai-forge/design-tokens": "workspace:*"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.0",

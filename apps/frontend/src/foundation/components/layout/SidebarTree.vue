@@ -84,111 +84,84 @@ function toggle(id: EntityId): void {
 <style lang="scss" scoped>
 .sidebar-tree {
   display: grid;
-  gap: 3px;
+  gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-
 .sidebar-tree--nested {
-  position: relative;
-  margin: 3px 0 7px;
+  margin: 4px 0 16px;
 }
-
 .sidebar-directory,
 .sidebar-link {
   position: relative;
   display: flex;
   width: 100%;
-  min-height: 54px;
+  min-height: 44px;
   align-items: center;
-  gap: 11px;
-  padding-top: 7px;
-  padding-right: 11px;
-  padding-bottom: 7px;
+  gap: 12px;
+  padding: 8px 12px;
   border: 0;
-  border-radius: 15px;
-  color: var(--sidebar-muted);
+  border-radius: 4px;
+  color: var(--ink-soft);
   background: transparent;
   text-align: left;
+  text-decoration: none;
   transition:
-    color 0.18s ease,
-    background 0.18s ease,
-    box-shadow 0.18s ease;
-
-  &:hover {
-    color: var(--sidebar-text);
-    background: var(--sidebar-surface-hover);
-  }
+    background 0.15s,
+    color 0.15s;
 }
-
-.sidebar-link.router-link-active:not(.sidebar-link--home),
-.sidebar-link.sidebar-link--home.router-link-exact-active {
-  color: var(--brand-accent-foreground);
-  background: var(--brand-accent);
-  box-shadow: 0 12px 30px color-mix(in srgb, var(--sidebar-surface-deep), transparent 60%);
+.sidebar-link:hover,
+.sidebar-directory:hover {
+  background: var(--surface-muted);
+  color: var(--ink);
 }
-
+.sidebar-link.router-link-active {
+  color: var(--primary);
+  background: var(--primary-mist);
+}
+.sidebar-link.router-link-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: var(--primary);
+}
+.sidebar-directory {
+  color: var(--muted);
+  margin-top: 8px;
+}
 .sidebar-node-icon {
   display: grid;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
   place-items: center;
-  border-radius: 11px;
-  color: inherit;
-  background: var(--sidebar-surface-hover);
+  flex: 0 0 18px;
 }
-
-.sidebar-link.router-link-active:not(.sidebar-link--home) .sidebar-node-icon,
-.sidebar-link.sidebar-link--home.router-link-exact-active .sidebar-node-icon {
-  background: color-mix(in srgb, var(--brand-accent-foreground), transparent 88%);
-}
-
 .sidebar-node-copy {
   min-width: 0;
   flex: 1;
-
-  b,
-  small {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  b {
-    font-size: 12px;
-    font-weight: 750;
-  }
-
-  small {
-    margin-top: 3px;
-    opacity: 0.58;
-    font-size: 8px;
-    letter-spacing: 0.06em;
-  }
 }
-
-.node-arrow {
-  opacity: 0.48;
-  font-size: 17px;
+.sidebar-node-copy b {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
-
-.directory-chevron {
-  width: 14px;
-  height: 14px;
-  opacity: 0.58;
-  transition: transform 0.18s;
+.sidebar-node-copy small {
+  display: none;
 }
-
+.sidebar-directory .sidebar-node-copy b {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.directory-chevron,
+.external-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
 .directory-chevron--closed {
   transform: rotate(-90deg);
-}
-
-.external-icon {
-  width: 13px;
-  height: 13px;
-  opacity: 0.55;
 }
 </style>

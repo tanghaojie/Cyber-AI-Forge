@@ -45,9 +45,9 @@ const { currentLocale, supportedLocales, setLocale, t } = useLocalization()
   gap: 3px;
   padding: 3px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
   background: color-mix(in srgb, var(--surface), transparent 22%);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--surface), var(--ink) 24%);
+  box-shadow: none;
 }
 
 .language-switcher__option {
@@ -59,11 +59,11 @@ const { currentLocale, supportedLocales, setLocale, t } = useLocalization()
   gap: 6px;
   padding: 0 9px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 4px;
   color: var(--muted);
   background: transparent;
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 0.025em;
   transition:
     color 0.18s ease,
@@ -85,13 +85,13 @@ const { currentLocale, supportedLocales, setLocale, t } = useLocalization()
 .language-switcher__option--active {
   color: var(--primary-foreground);
   background: var(--primary);
-  box-shadow: 0 5px 14px color-mix(in srgb, var(--primary), transparent 78%);
+  box-shadow: none;
 }
 
 .language-switcher__short {
   font-family: var(--font-display);
   font-size: 10px;
-  font-weight: 900;
+  font-weight: 500;
 }
 
 .language-switcher__name {
@@ -101,7 +101,7 @@ const { currentLocale, supportedLocales, setLocale, t } = useLocalization()
 .language-switcher--dark {
   border-color: color-mix(in srgb, var(--hero-foreground), transparent 86%);
   background: color-mix(in srgb, var(--brand-surface-end), transparent 38%);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--hero-foreground), transparent 96%);
+  box-shadow: none;
 
   .language-switcher__option {
     color: var(--hero-meta);

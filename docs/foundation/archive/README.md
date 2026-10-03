@@ -166,3 +166,8 @@
 - 2026-06 的文件描述脚手架起点；2026-07-22 至 2026-07-23 主要记录管理基础、契约和测试；2026-07-27 至 2026-07-29 主要记录模块边界、动态导航、认证和工程治理；2026-07-30 起继续记录基线后的功能修正与模型精简。
 
 计划和日志只用于复盘实施过程，不用于定义当前行为。需要定位时先按日期或主题文件名搜索，最多打开与问题最相关的一至两份。
+
+## 2026-10-03 PRISM 全项目界面
+
+- [实施计划](plans/2026-10-03-prism-design-system.md)、[分域审查](plans/2026-10-03-prism-archive-review.md)、[协作记录](ai-logs/style/2026/10/2026-10-03-prism-design-system.md)。
+- 当前规范：[PRISM 设计](../design/prism-design-system.md)、[主题令牌模块](../design/modules/design-tokens.md)、[下游升级指南](../guides/prism-upgrade.md)。

@@ -1,115 +1,124 @@
 <template>
-  <el-dialog
+  <el-drawer
     v-model="dialogOpen"
     :title="user ? t('users.dialog.editTitle') : t('users.dialog.createTitle')"
-    width="min(920px, calc(100vw - 32px))"
-    :close-on-click-modal="!saving"
+    size="min(696px, 100vw)"
+    :close-on-click-modal="false"
+    :close-on-press-escape="!saving"
+    :show-close="!saving"
   >
-    <el-form label-position="top" @submit.prevent="submit">
-      <div class="form-columns">
-        <el-form-item :label="t('users.fields.username')" required>
-          <el-input
-            v-model.trim="form.username"
-            :disabled="Boolean(user)"
-            :placeholder="t('users.dialog.usernamePlaceholder')"
-          />
-        </el-form-item>
-        <el-form-item :label="t('users.fields.displayName')" required>
-          <el-input
-            v-model.trim="form.displayName"
-            :placeholder="t('users.dialog.displayNamePlaceholder')"
-          />
-        </el-form-item>
-        <el-form-item :label="t('users.fields.email')" required>
-          <el-input
-            v-model.trim="form.email"
-            type="email"
-            :placeholder="t('users.dialog.emailPlaceholder')"
-          />
-        </el-form-item>
-        <el-form-item
-          :label="user ? t('users.fields.newPassword') : t('users.fields.password')"
-          :required="!user"
-        >
-          <el-input
-            v-model="form.password"
-            type="password"
-            show-password
-            :placeholder="t('users.dialog.passwordPlaceholder')"
-          />
-        </el-form-item>
-        <el-form-item :label="t('users.fields.roles')" class="sm:col-span-2">
-          <el-select
-            v-model="form.roleIds"
-            multiple
-            class="w-full"
-            :placeholder="t('users.dialog.rolesPlaceholder')"
-          >
-            <el-option
-              v-for="role in roleOptions"
-              :key="role.id"
-              :label="role.name"
-              :value="role.id"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="t('users.fields.departments')" class="sm:col-span-2" required>
-          <el-select
-            v-model="form.departmentIds"
-            multiple
-            filterable
-            class="w-full"
-            :placeholder="t('users.dialog.departmentsPlaceholder')"
-          >
-            <el-option
-              v-for="department in departmentOptions"
-              :key="department.id"
-              :label="department.name"
-              :value="department.id"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="t('users.fields.positions')" class="sm:col-span-2">
-          <el-select
-            v-model="form.positionIds"
-            multiple
-            filterable
-            class="w-full"
-            :placeholder="t('users.dialog.positionsPlaceholder')"
-          >
-            <el-option
-              v-for="position in selectedPositions"
-              :key="position.id"
-              :label="positionLabel(position)"
-              :value="position.id"
-            />
-          </el-select>
-          <small class="field-hint">{{ t('users.dialog.positionsHint') }}</small>
-        </el-form-item>
-        <el-form-item :label="t('users.fields.primaryDepartment')" class="sm:col-span-2" required>
-          <el-select
-            v-model="form.primaryDepartmentId"
-            class="w-full"
-            :placeholder="t('users.dialog.primaryDepartmentPlaceholder')"
-          >
-            <el-option
-              v-for="department in selectedDepartments"
-              :key="department.id"
-              :label="department.name"
-              :value="department.id"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="t('users.fields.status')" class="sm:col-span-2">
-          <el-switch
-            v-model="form.enabled"
-            :active-text="t('shared.state.enabled')"
-            :inactive-text="t('shared.state.disabled')"
-          />
-        </el-form-item>
-      </div>
-      <!-- 用户基本资料和直接数据策略分属两个后端写入，但在一个弹窗中连续提交。 -->
-      <DataPolicyEditor v-model="access.dataPolicies" />
+    <el-form :disabled="saving" label-position="top" @submit.prevent="submit">
+      <el-tabs v-model="editorTab"
+        ><el-tab-pane name="identity" :label="t('users.editor.identity')"
+          ><div class="form-columns">
+            <el-form-item :label="t('users.fields.username')" required>
+              <el-input
+                v-model.trim="form.username"
+                :disabled="Boolean(user || savedEntityId)"
+                :placeholder="t('users.dialog.usernamePlaceholder')"
+              />
+            </el-form-item>
+            <el-form-item :label="t('users.fields.displayName')" required>
+              <el-input
+                v-model.trim="form.displayName"
+                :placeholder="t('users.dialog.displayNamePlaceholder')"
+              />
+            </el-form-item>
+            <el-form-item :label="t('users.fields.email')" required>
+              <el-input
+                v-model.trim="form.email"
+                type="email"
+                :placeholder="t('users.dialog.emailPlaceholder')"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="user ? t('users.fields.newPassword') : t('users.fields.password')"
+              :required="!user && !savedEntityId"
+            >
+              <el-input
+                v-model="form.password"
+                type="password"
+                show-password
+                :placeholder="t('users.dialog.passwordPlaceholder')"
+              />
+            </el-form-item>
+            <el-form-item :label="t('users.fields.roles')" class="sm:col-span-2">
+              <el-select
+                v-model="form.roleIds"
+                multiple
+                class="w-full"
+                :placeholder="t('users.dialog.rolesPlaceholder')"
+              >
+                <el-option
+                  v-for="role in roleOptions"
+                  :key="role.id"
+                  :label="role.name"
+                  :value="role.id"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="t('users.fields.departments')" class="sm:col-span-2" required>
+              <el-select
+                v-model="form.departmentIds"
+                multiple
+                filterable
+                class="w-full"
+                :placeholder="t('users.dialog.departmentsPlaceholder')"
+              >
+                <el-option
+                  v-for="department in departmentOptions"
+                  :key="department.id"
+                  :label="department.name"
+                  :value="department.id"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="t('users.fields.positions')" class="sm:col-span-2">
+              <el-select
+                v-model="form.positionIds"
+                multiple
+                filterable
+                class="w-full"
+                :placeholder="t('users.dialog.positionsPlaceholder')"
+              >
+                <el-option
+                  v-for="position in selectedPositions"
+                  :key="position.id"
+                  :label="positionLabel(position)"
+                  :value="position.id"
+                />
+              </el-select>
+              <small class="field-hint">{{ t('users.dialog.positionsHint') }}</small>
+            </el-form-item>
+            <el-form-item
+              :label="t('users.fields.primaryDepartment')"
+              class="sm:col-span-2"
+              required
+            >
+              <el-select
+                v-model="form.primaryDepartmentId"
+                class="w-full"
+                :placeholder="t('users.dialog.primaryDepartmentPlaceholder')"
+              >
+                <el-option
+                  v-for="department in selectedDepartments"
+                  :key="department.id"
+                  :label="department.name"
+                  :value="department.id"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="t('users.fields.status')" class="sm:col-span-2">
+              <el-switch
+                v-model="form.enabled"
+                :active-text="t('shared.state.enabled')"
+                :inactive-text="t('shared.state.disabled')"
+              />
+            </el-form-item></div></el-tab-pane
+        ><el-tab-pane name="scope" :label="t('users.editor.scope')">
+          <!-- 用户基本资料和直接数据策略分属两个后端写入，但在一个弹窗中连续提交。 -->
+          <DataPolicyEditor v-model="access.dataPolicies" /></el-tab-pane
+      ></el-tabs>
       <el-alert v-if="formError" :title="formError" type="error" show-icon :closable="false" />
       <div class="dialog-actions">
         <el-button @click="dialogOpen = false">{{ t('shared.actions.cancel') }}</el-button>
@@ -118,7 +127,7 @@
         </el-button>
       </div>
     </el-form>
-  </el-dialog>
+  </el-drawer>
 </template>
 
 <script setup lang="ts">
@@ -154,9 +163,11 @@ const emit = defineEmits<{
 }>()
 const dialogOpen = defineModel<boolean>({ required: true })
 
+const editorTab = ref('identity')
 const saving = ref(false)
 const accessReady = ref(true)
 const formError = ref('')
+const savedEntityId = ref<EntityId | null>(null)
 const { t } = useLocalization()
 const form = reactive({
   username: '',
@@ -184,6 +195,8 @@ function positionLabel(position: PositionOption): string {
 }
 
 function resetForm(): void {
+  editorTab.value = 'identity'
+  savedEntityId.value = null
   // 每次打开都从 props 重新构造数组，避免编辑过程直接修改列表中的用户对象。
   Object.assign(
     form,
@@ -222,7 +235,7 @@ async function submit(): Promise<void> {
     if (
       !form.displayName ||
       !form.email ||
-      (!props.user && (!form.username || form.password.length < 8))
+      (!props.user && !savedEntityId.value && (!form.username || form.password.length < 8))
     ) {
       throw new Error(t('users.errors.invalidForm'))
     }
@@ -233,8 +246,9 @@ async function submit(): Promise<void> {
     ) {
       throw new Error(t('users.errors.invalidDepartment'))
     }
-    const result = props.user
-      ? await updateUser(props.user.id, {
+    const entityId = savedEntityId.value ?? props.user?.id
+    const result = entityId
+      ? await updateUser(entityId, {
           displayName: form.displayName,
           email: form.email,
           ...(form.password ? { password: form.password } : {}),
@@ -258,11 +272,13 @@ async function submit(): Promise<void> {
     if (result.status !== 0) {
       throw new Error(t('users.errors.saveFailed'))
     }
-    const userId = props.user?.id ?? result.data?.id
+    const userId = savedEntityId.value ?? props.user?.id ?? result.data?.id
     if (!userId) {
       throw new Error(t('users.errors.missingId'))
     }
     // 只有用户主记录保存成功后才有主体 ID，可继续整体替换其直接数据策略。
+    savedEntityId.value = userId
+    form.password = ''
     const accessResult = await replaceSubjectAccess('user', userId, {
       permissionKeys: [],
       dataPolicies: access.dataPolicies.map((policy) => ({

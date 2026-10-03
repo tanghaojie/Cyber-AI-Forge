@@ -15,7 +15,8 @@
     "pinia": "^2.2.0",
     "vue": "^3.4.0",
     "vue-i18n": "^11.4.8",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "@cyber-ai-forge/design-tokens": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

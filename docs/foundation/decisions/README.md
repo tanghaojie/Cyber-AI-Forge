@@ -23,3 +23,5 @@
 - [ADR-20260811](ADR-20260811-adr-filename-convention.md)：新增 ADR 使用日期与主题命名，既有 ADR 文件名和引用保持不变。
 
 新增 ADR 时使用 [ADR 模板](../../templates/adr-template.md)和 `ADR-YYYYMMDD-<topic>.md` 文件名。日期取创建/接受日期，topic 使用小写 kebab-case；同日通过唯一 topic 区分。既有 `ADR-NNNN-<topic>.md` 文件和引用保持不变。ADR 被取代或被后续基线吸收后更新替代关系并移入 `docs/foundation/archive/decisions/`。
+
+- [共享 PRISM 令牌与品牌隔离](ADR-20261003-prism-design-tokens.md)。

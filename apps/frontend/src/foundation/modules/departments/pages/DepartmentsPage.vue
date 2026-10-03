@@ -1,7 +1,18 @@
 <template>
   <section class="management-page" aria-labelledby="departments-title">
     <header class="page-intro">
-      <el-button type="primary" :icon="Plus" size="large" @click="openCreate(null)">
+      <div>
+        <p>{{ t('departments.page.kicker') }}</p>
+        <h2 id="departments-title">{{ t('departments.views.departments') }}</h2>
+        <span>{{ t('departments.page.description') }}</span>
+      </div>
+      <el-button
+        type="primary"
+        :aria-label="t('shared.actions.add')"
+        :icon="Plus"
+        size="large"
+        @click="openCreate(null)"
+      >
         {{ t('departments.page.add') }}
       </el-button>
     </header>

@@ -1,7 +1,18 @@
 <template>
   <section class="management-page" aria-labelledby="menus-title">
     <header class="page-intro">
-      <el-button type="primary" :icon="Plus" size="large" @click="openCreate(null)">
+      <div>
+        <p>{{ t('menus.page.kicker') }}</p>
+        <h2 id="menus-title">{{ t('menus.views.menus') }}</h2>
+        <span>{{ t('menus.page.description') }}</span>
+      </div>
+      <el-button
+        type="primary"
+        :aria-label="t('shared.actions.add')"
+        :icon="Plus"
+        size="large"
+        @click="openCreate(null)"
+      >
         {{ t('menus.page.add') }}
       </el-button>
     </header>

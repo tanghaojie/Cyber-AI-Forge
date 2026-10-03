@@ -123,8 +123,8 @@ export const content: Record<Locale, SiteContent> = {
     },
     hero: {
       eyebrow: 'OPEN SOURCE / AI DEVELOPMENT / ADMIN READY',
-      titleTop: 'OPEN-SOURCE AI',
-      titleBottom: 'ADMIN SCAFFOLD.',
+      titleTop: 'BUILD WITH CLARITY.',
+      titleBottom: 'EVOLVE BY DESIGN.',
       lead: 'A full-stack enterprise admin scaffold for AI-assisted development with authentication, RBAC, users, roles, menus, and API logs—without losing structure after the first demo.',
       source: 'View source',
       explore: 'Explore the system',
@@ -132,7 +132,7 @@ export const content: Record<Locale, SiteContent> = {
       stats: [
         { value: '15', label: 'system tables' },
         { value: 'ZOD 4', label: 'runtime contracts' },
-        { value: '121', label: 'backend tests' },
+        { value: '06', label: 'theme palettes' },
       ],
     },
     manifesto: {
@@ -150,8 +150,8 @@ export const content: Record<Locale, SiteContent> = {
     showcase: {
       label: '02 / PRODUCT SURFACES',
       title: 'One foundation. Every surface aligned.',
-      lead: 'Scroll through the system—from the operator experience to the contracts and documentation that keep it maintainable.',
-      scrollHint: 'Scroll to rotate',
+      lead: 'Explore the PRISM interface designs, from identity and access to the everyday workspace. Preview images use sample data.',
+      scrollHint: 'Select a surface',
       sceneLabel: 'Product scene',
       scenes: [
         {
@@ -344,8 +344,8 @@ export const content: Record<Locale, SiteContent> = {
     },
     hero: {
       eyebrow: '开源 / AI 开发 / 后台管理基础',
-      titleTop: '开源 AI 开发',
-      titleBottom: '后台管理脚手架。',
+      titleTop: '让复杂系统，',
+      titleBottom: '清晰生长。',
       lead: '面向 AI 辅助开发的全栈后台管理系统脚手架，内置登录、用户、角色、权限、菜单、字典和接口日志，帮助人类与 AI 持续构建真实企业应用。',
       source: '查看源码',
       explore: '探索技术体系',
@@ -353,7 +353,7 @@ export const content: Record<Locale, SiteContent> = {
       stats: [
         { value: '15', label: '张系统数据表' },
         { value: 'ZOD 4', label: '运行时契约' },
-        { value: '121', label: '项后端测试' },
+        { value: '06', label: '种主题配色' },
       ],
     },
     manifesto: {
@@ -371,8 +371,8 @@ export const content: Record<Locale, SiteContent> = {
     showcase: {
       label: '02 / 产品界面',
       title: '一套基础，让每一层彼此对齐。',
-      lead: '向下滚动浏览完整系统：从维护者使用的管理界面，到让项目长期可维护的契约和文档。',
-      scrollHint: '滚动旋转',
+      lead: '浏览 PRISM 界面设计：从身份与授权，到日常工作空间。预览图使用示例数据。',
+      scrollHint: '选择界面',
       sceneLabel: '产品场景',
       scenes: [
         {

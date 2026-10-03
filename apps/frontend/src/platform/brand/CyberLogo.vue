@@ -53,6 +53,8 @@ withDefaults(
 }
 
 .cyber-logo--dark {
+  --brand-accent: var(--primary);
+  --brand-node: var(--primary);
   --cyber-logo-mark: var(--ink);
   --cyber-logo-text: var(--ink);
   --cyber-logo-muted: var(--muted);
@@ -102,6 +104,7 @@ withDefaults(
 }
 
 .cyber-logo__wordmark {
+  min-width: 0;
   display: grid;
   gap: 4px;
 }
@@ -116,10 +119,12 @@ withDefaults(
 }
 
 .cyber-logo__wordmark small {
+  max-width: 220px;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
   color: var(--cyber-logo-muted);
   font-size: var(--cyber-logo-descriptor-size, 8px);
   font-weight: 700;
   letter-spacing: 0.2em;
-  line-height: 1;
 }
 </style>

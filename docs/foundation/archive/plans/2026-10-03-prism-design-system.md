@@ -45,4 +45,4 @@ updated: 2026-10-03
 
 ## 交付范围
 
-本次只完成 Forge；下游通过 Foundation 更新与升级指南同步。未修改其他仓库。相关实现提交使用 `feat(ui): implement PRISM across Forge surfaces`，归档闭环提交记录实际哈希。
+本次只完成 Forge；下游通过 Foundation 更新与升级指南同步。未修改其他仓库。相关实现提交使用 `feat(ui): implement PRISM across Forge surfaces`，实际实现哈希为 `5c5e8295caf6377dbbebfe5d99e816777638741f`。

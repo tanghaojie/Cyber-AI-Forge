@@ -41,4 +41,4 @@ downstreamAction: sync-foundation-with-integration-review
 
 ## 关联提交
 
-实现提交：`feat(ui): implement PRISM across Forge surfaces`。实际提交哈希在归档闭环中登记。
+实现提交：`feat(ui): implement PRISM across Forge surfaces`。实现提交：`5c5e8295caf6377dbbebfe5d99e816777638741f`；提交 trailer 已核验。

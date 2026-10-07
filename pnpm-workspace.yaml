@@ -10,6 +10,7 @@ onlyBuiltDependencies:
 confirmModulesPurge: false
 allowBuilds:
   '@parcel/watcher': false
+  '@scarf/scarf': true
   esbuild: true
   simple-git-hooks: true
   vue-demi: true
